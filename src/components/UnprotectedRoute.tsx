@@ -2,7 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function ProtectedRoute({
+export default function UnprotectedRoute({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -11,10 +11,10 @@ export default function ProtectedRoute({
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) router.replace("/login");
+    if (!loading && user) router.replace("/dashboard");
   }, [loading, user]);
 
   if (loading) return null;
-  if (!user) return null;
+  if (user) return null;
   return children;
 }

@@ -46,6 +46,13 @@ export async function loginUser({
   return json.token;
 }
 
+export async function logoutUser() {
+  await fetch(`${API_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+}
+
 export async function getCurrentUser() {
   const res = await fetch(`${API_URL}/me`, {
     method: "GET",
@@ -56,6 +63,5 @@ export async function getCurrentUser() {
     const message = await res.text();
     throw new Error(message || "getCurrentUser failed");
   }
-  const json = await res.json();
-  return json.user;
+  return res.json();
 }

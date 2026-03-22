@@ -1,5 +1,6 @@
 "use client";
 
+import UnprotectedRoute from "@/components/UnprotectedRoute";
 import { registerUser } from "@/lib/api/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
 import { useRouter } from "next/navigation";
@@ -31,41 +32,43 @@ export default function Register() {
   }
 
   return (
-    <main className="text-center">
-      <form onSubmit={handleSubmit}>
-        <h1>Create an account</h1>
+    <UnprotectedRoute>
+      <main className="text-center">
+        <form onSubmit={handleSubmit}>
+          <h1>Create an account</h1>
 
-        <div>
-          <label>Name</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
-          />
-        </div>
-        <div>
-          <label>E-mail</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your e-mail"
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
-          />
-        </div>
+          <div>
+            <label>Name</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label>E-mail</label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your e-mail"
+            />
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Your password"
+            />
+          </div>
 
-        {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
+          {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
 
-        <button type="submit" disabled={registerLoading}>
-          {registerLoading ? "Creating account..." : "Register"}
-        </button>
-      </form>
-    </main>
+          <button type="submit" disabled={registerLoading}>
+            {registerLoading ? "Creating account..." : "Register"}
+          </button>
+        </form>
+      </main>
+    </UnprotectedRoute>
   );
 }
