@@ -46,11 +46,10 @@ export async function loginUser({
   return json.token;
 }
 
-export async function getCurrentUser(token: string) {
+export async function getCurrentUser() {
   const res = await fetch(`${API_URL}/me`, {
     method: "GET",
     credentials: "include",
-    headers: { Authorization: token },
   });
 
   if (!res.ok) {

@@ -2,7 +2,6 @@
 
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
 
 export default function Dashboard() {
   const { user } = useAuth();

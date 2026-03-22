@@ -19,14 +19,12 @@ export function AuthProvider({
 }>) {
   const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!token || token.length === 0) return;
     (async () => {
-      setLoading(true);
       try {
-        const user = await getCurrentUser(token);
+        const user = await getCurrentUser();
         setUser(user);
       } catch (e) {
         console.error(e);
@@ -34,7 +32,7 @@ export function AuthProvider({
         setLoading(false);
       }
     })();
-  }, [token]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ token, setToken, user, loading }}>
