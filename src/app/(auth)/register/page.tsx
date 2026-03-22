@@ -1,7 +1,7 @@
 "use client";
 
 import { registerUser } from "@/lib/api/auth";
-import parseError from "@/lib/utils/parseError";
+import parseDatabaseError from "@/lib/utils/parseDatabaseError";
 import { useRouter } from "next/navigation";
 import { SubmitEvent, useState } from "react";
 
@@ -13,20 +13,20 @@ export default function Register() {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setRegisterLoading(true);
 
     try {
       await registerUser({ name, email, password });
       router.push("/login");
     } catch (e: any) {
-      setError(parseError(e));
+      setError(parseDatabaseError(e));
     } finally {
-      setLoading(false);
+      setRegisterLoading(false);
     }
   }
 
@@ -62,8 +62,8 @@ export default function Register() {
 
         {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating account..." : "Register"}
+        <button type="submit" disabled={registerLoading}>
+          {registerLoading ? "Creating account..." : "Register"}
         </button>
       </form>
     </main>

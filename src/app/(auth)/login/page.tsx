@@ -1,34 +1,44 @@
 "use client";
 
+import { useAuth } from "@/hooks/useAuth";
 import { loginUser } from "@/lib/api/auth";
-import parseError from "@/lib/utils/parseError";
-import Link from "next/link";
+import parseDatabaseError from "@/lib/utils/parseDatabaseError";
 import { useRouter } from "next/navigation";
-import { SubmitEvent, useState } from "react";
+import { SubmitEvent, useEffect, useState } from "react";
 
 export default function Login() {
   const router = useRouter();
+  const { setToken, loading } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [redirect, setRedirect] = useState("");
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setLoginLoading(true);
 
     try {
-      await loginUser({ email, password });
-      router.push("/dashboard");
+      const token = await loginUser({ email, password });
+      setToken(token);
+      setRedirect("/dashboard");
     } catch (e: any) {
-      setError(parseError(e));
+      setError(parseDatabaseError(e));
     } finally {
-      setLoading(false);
+      setLoginLoading(false);
     }
   }
+
+  // Redirect after user context has been set
+  useEffect(() => {
+    if (loading) return;
+    if (!redirect) return;
+    router.push(redirect);
+  }, [loading]);
 
   return (
     <main className="text-center">
@@ -54,8 +64,8 @@ export default function Login() {
 
         {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Log in"}
+        <button type="submit" disabled={loginLoading}>
+          {loginLoading ? "Logging in..." : "Log in"}
         </button>
       </form>
     </main>

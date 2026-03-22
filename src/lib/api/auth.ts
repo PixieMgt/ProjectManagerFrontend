@@ -18,7 +18,7 @@ export async function registerUser({
 
   if (!res.ok) {
     const message = await res.text();
-    throw new Error(message || "Registration failed");
+    throw new Error(message || "registerUser failed");
   }
 
   return res.json();
@@ -40,8 +40,23 @@ export async function loginUser({
 
   if (!res.ok) {
     const message = await res.text();
-    throw new Error(message || "Login failed");
+    throw new Error(message || "loginUser failed");
   }
+  const json = await res.json();
+  return json.token;
+}
 
-  return res.json();
+export async function getCurrentUser(token: string) {
+  const res = await fetch(`${API_URL}/me`, {
+    method: "GET",
+    credentials: "include",
+    headers: { Authorization: token },
+  });
+
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(message || "getCurrentUser failed");
+  }
+  const json = await res.json();
+  return json.user;
 }

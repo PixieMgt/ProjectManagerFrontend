@@ -1,4 +1,4 @@
-export default function parseError(e: any) {
+export default function parseDatabaseError(e: any) {
   const errorMessage = JSON.parse(e.message);
   let newError = errorMessage.message;
   for (let e in errorMessage.errors) {
