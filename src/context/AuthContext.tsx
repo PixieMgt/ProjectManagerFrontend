@@ -1,7 +1,6 @@
 "use client";
 
 import { getCurrentUser } from "@/lib/api/auth";
-import { usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextType = {

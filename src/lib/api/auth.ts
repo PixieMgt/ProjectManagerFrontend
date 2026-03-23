@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL + "/auth";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function registerUser({
   name,
@@ -9,7 +9,7 @@ export async function registerUser({
   email: string;
   password: string;
 }) {
-  const res = await fetch(`${API_URL}/register`, {
+  const res = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -31,7 +31,7 @@ export async function loginUser({
   email: string;
   password: string;
 }) {
-  const res = await fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -47,18 +47,19 @@ export async function loginUser({
 }
 
 export async function logoutUser() {
-  await fetch(`${API_URL}/logout`, {
+  await fetch(`${API_URL}/auth/logout`, {
     method: "POST",
     credentials: "include",
   });
 }
 
 export async function getCurrentUser() {
-  const res = await fetch(`${API_URL}/me`, {
+  const res = await fetch(`${API_URL}/auth/me`, {
     method: "GET",
     credentials: "include",
   });
 
+  if (res.status === 400) return {};
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getCurrentUser failed");

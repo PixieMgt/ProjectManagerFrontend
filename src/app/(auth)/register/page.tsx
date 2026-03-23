@@ -1,8 +1,9 @@
 "use client";
 
-import UnprotectedRoute from "@/components/UnprotectedRoute";
+import UnprotectedRoute from "@/components/navigation/UnprotectedRoute";
 import { registerUser } from "@/lib/api/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitEvent, useState } from "react";
 
@@ -43,6 +44,7 @@ export default function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
+              className="ml-2"
             />
           </div>
           <div>
@@ -51,6 +53,7 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your e-mail"
+              className="ml-2"
             />
           </div>
           <div>
@@ -59,14 +62,26 @@ export default function Register() {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Your password"
+              className="ml-2"
             />
           </div>
 
-          {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
+          {error && (
+            <p style={{ whiteSpace: "pre-wrap" }} className="text-red-500">
+              {error}
+            </p>
+          )}
 
-          <button type="submit" disabled={registerLoading}>
+          <button
+            type="submit"
+            disabled={registerLoading}
+            className="hover:cursor-pointer"
+          >
             {registerLoading ? "Creating account..." : "Register"}
           </button>
+          <Link href={"/login"} className="block text-sm underline">
+            Already have an account?
+          </Link>
         </form>
       </main>
     </UnprotectedRoute>

@@ -1,6 +1,6 @@
 "use client";
 
-import UnprotectedRoute from "@/components/UnprotectedRoute";
+import UnprotectedRoute from "@/components/navigation/UnprotectedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { loginUser } from "@/lib/api/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
@@ -55,6 +55,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your e-mail"
+              className="ml-2"
             />
           </div>
           <div>
@@ -63,12 +64,21 @@ export default function Login() {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Your password"
+              className="ml-2"
             />
           </div>
 
-          {error && <p style={{ whiteSpace: "pre-wrap" }}>{error}</p>}
+          {error && (
+            <p style={{ whiteSpace: "pre-wrap" }} className="text-red-500">
+              {error}
+            </p>
+          )}
 
-          <button type="submit" disabled={loginLoading}>
+          <button
+            type="submit"
+            disabled={loginLoading}
+            className="hover:cursor-pointer"
+          >
             {loginLoading ? "Logging in..." : "Log in"}
           </button>
         </form>
