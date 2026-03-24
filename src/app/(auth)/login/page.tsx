@@ -1,6 +1,5 @@
 "use client";
 
-import UnprotectedRoute from "@/components/navigation/UnprotectedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { loginUser } from "@/lib/api/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
@@ -44,45 +43,43 @@ export default function Login() {
   }, [loading, redirect, user]);
 
   return (
-    <UnprotectedRoute>
-      <main className="text-center">
-        <form onSubmit={handleSubmit}>
-          <h1>Log in to your account</h1>
+    <main className="text-center">
+      <form onSubmit={handleSubmit}>
+        <h1>Log in to your account</h1>
 
-          <div>
-            <label>E-mail</label>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your e-mail"
-              className="ml-2"
-            />
-          </div>
-          <div>
-            <label>Password</label>
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Your password"
-              className="ml-2"
-            />
-          </div>
+        <div>
+          <label>E-mail</label>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your e-mail"
+            className="ml-2"
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Your password"
+            className="ml-2"
+          />
+        </div>
 
-          {error && (
-            <p style={{ whiteSpace: "pre-wrap" }} className="text-red-500">
-              {error}
-            </p>
-          )}
+        {error && (
+          <p style={{ whiteSpace: "pre-wrap" }} className="text-red-500">
+            {error}
+          </p>
+        )}
 
-          <button
-            type="submit"
-            disabled={loginLoading}
-            className="hover:cursor-pointer"
-          >
-            {loginLoading ? "Logging in..." : "Log in"}
-          </button>
-        </form>
-      </main>
-    </UnprotectedRoute>
+        <button
+          type="submit"
+          disabled={loginLoading}
+          className="hover:cursor-pointer"
+        >
+          {loginLoading ? "Logging in..." : "Log in"}
+        </button>
+      </form>
+    </main>
   );
 }

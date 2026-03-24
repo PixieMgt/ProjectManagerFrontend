@@ -1,64 +1,93 @@
 import SectionContainer from "@/components/ui/SectionContainer";
-import { useAuth } from "@/hooks/useAuth";
-import { getUserClients } from "@/lib/api/clients";
-import { getUserProjects } from "@/lib/api/projects";
-import { getUserTasks } from "@/lib/api/tasks";
-import { getUserTimeEntries } from "@/lib/api/time-entries";
-import { useEffect, useState } from "react";
+import SectionModal from "@/components/ui/modal/SectionModal";
+import { useData } from "@/hooks/useData";
+import { useModal } from "@/hooks/useModal";
 
 export default function DashboardDeveloper() {
-  const { user, token } = useAuth();
-  const [projects, setProjects] = useState<Array<any> | null>(null);
-  const [clients, setClients] = useState<Array<any> | null>(null);
-  const [tasks, setTasks] = useState<Array<any> | null>(null);
-  const [timeEntries, setTimeEntries] = useState<Array<any> | null>(null);
-
-  useEffect(() => {
-    if (!user || !token) return;
-    getUserProjects(user.id, token).then((data) => {
-      setProjects(data.projects);
-    });
-    getUserTasks(user.id, token).then((data) => {
-      setTasks(data.tasks);
-    });
-    getUserTimeEntries(user.id, token).then((data) => {
-      setTimeEntries(data.timeEntries);
-    });
-    getUserClients(user.id, token).then((data) => {
-      setClients(data.clients);
-    });
-  }, [user, token]);
+  const { projects, clients, tasks, timeEntries } = useData();
+  const { openModal } = useModal();
 
   return (
-    <div className="grid grid-cols-2 gap-8 m-8">
-      <SectionContainer title="Projects">
-        {projects ? (
-          projects.map((p, i) => <p key={i}>{p.name}</p>)
-        ) : (
-          <p>No projects found</p>
-        )}
-      </SectionContainer>
-      <SectionContainer title="Clients">
-        {clients ? (
-          clients.map((c, i) => <p key={i}>{c.name}</p>)
-        ) : (
-          <p>No clients found</p>
-        )}
-      </SectionContainer>
-      <SectionContainer title="Tasks">
-        {tasks ? (
-          tasks.map((t, i) => <p key={i}>{t.title}</p>)
-        ) : (
-          <p>No tasks found</p>
-        )}
-      </SectionContainer>
-      <SectionContainer title="Time Entries">
-        {timeEntries ? (
-          timeEntries.map((t, i) => <p key={i}>{t.comment}</p>)
-        ) : (
-          <p>No time entries found</p>
-        )}
-      </SectionContainer>
-    </div>
+    <>
+      <SectionModal />
+      <div className="flex gap-8 m-8">
+        <div className="flex-1">
+          <SectionContainer
+            title="Projects"
+            onAdd={() => openModal("project", "create")}
+          >
+            {projects ? (
+              projects.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => openModal("project", "read", p)}
+                  className="block hover:cursor-pointer"
+                >
+                  {p.name}
+                </button>
+              ))
+            ) : (
+              <p>No projects found</p>
+            )}
+          </SectionContainer>
+          <SectionContainer
+            title="Tasks"
+            onAdd={() => openModal("task", "create")}
+          >
+            {tasks ? (
+              tasks.map((t, i) => (
+                <button
+                  key={i}
+                  onClick={() => openModal("task", "read", t)}
+                  className="block hover:cursor-pointer"
+                >
+                  {t.title}
+                </button>
+              ))
+            ) : (
+              <p>No tasks found</p>
+            )}
+          </SectionContainer>
+        </div>
+        <div className="flex-1">
+          <SectionContainer
+            title="Clients"
+            onAdd={() => openModal("client", "create")}
+          >
+            {clients ? (
+              clients.map((c, i) => (
+                <button
+                  key={i}
+                  onClick={() => openModal("client", "read", c)}
+                  className="block hover:cursor-pointer"
+                >
+                  {c.name}
+                </button>
+              ))
+            ) : (
+              <p>No clients found</p>
+            )}
+          </SectionContainer>
+          <SectionContainer
+            title="Time Entries"
+            onAdd={() => openModal("timeEntry", "create")}
+          >
+            {timeEntries ? (
+              timeEntries.map((t, i) => (
+                <button
+                  key={i}
+                  onClick={() => openModal("timeEntry", "read", t)}
+                  className="block hover:cursor-pointer"
+                >
+                  {t.comment}
+                </button>
+              ))
+            ) : (
+              <p>No time entries found</p>
+            )}
+          </SectionContainer>
+        </div>
+      </div>
+    </>
   );
 }

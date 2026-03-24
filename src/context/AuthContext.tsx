@@ -1,7 +1,7 @@
 "use client";
 
 import { getCurrentUser } from "@/lib/api/auth";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type AuthContextType = {
   token: string;
@@ -18,9 +18,9 @@ export function AuthProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState<string>("");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   async function saveUser() {
     try {
