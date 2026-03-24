@@ -18,7 +18,7 @@ export default function ProjectModal({
   mode: ModalMode;
   data?: any;
 }) {
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const { openModal, closeModal } = useModal();
   const { refreshProjects } = useData();
   const isRead = mode === "read";
