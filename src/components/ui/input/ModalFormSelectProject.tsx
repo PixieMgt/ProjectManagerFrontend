@@ -23,7 +23,7 @@ export default function ModalFormSelectProject({
         onChange={onChange}
         className="w-[75%] ml-2 border-b-1"
       >
-        <option value="">Select a project</option>
+        <option value={-1}>Select a project</option>
         {projects &&
           projects.map((p) => (
             <option key={p.id} value={p.id}>

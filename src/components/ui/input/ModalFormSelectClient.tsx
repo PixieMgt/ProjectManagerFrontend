@@ -23,7 +23,7 @@ export default function ModalFormSelectClient({
         onChange={onChange}
         className="w-[75%] ml-2 border-b-1"
       >
-        <option value="">Select a client</option>
+        <option value={-1}>Select a client</option>
         {clients &&
           clients.map((c) => (
             <option key={c.id} value={c.id}>
