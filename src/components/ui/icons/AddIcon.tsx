@@ -1,9 +1,11 @@
-export default function AddIcon() {
+import { IconColorType } from "@/lib/utils/IconColorType";
+
+export default function AddIcon({ color }: { color: IconColorType }) {
   return (
     <svg
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      fill="#000000"
+      fill={color}
       className="h-full w-full"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -28,7 +30,7 @@ export default function AddIcon() {
                 id="_--Rectangle"
                 rx="2"
                 ry="2"
-                stroke="#ffffff"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -38,7 +40,7 @@ export default function AddIcon() {
               ></rect>{" "}
               <line
                 fill="none"
-                stroke="#ffffff"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -49,7 +51,7 @@ export default function AddIcon() {
               ></line>{" "}
               <line
                 fill="none"
-                stroke="#ffffff"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"

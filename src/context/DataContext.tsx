@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/hooks/useAuth";
 import { getUserClients } from "@/lib/api/clients";
-import { getUserProjects } from "@/lib/api/projects";
+import { getProjectMembers, getUserProjects } from "@/lib/api/projects";
 import { getUserTasks } from "@/lib/api/tasks";
 import { getUserTimeEntries } from "@/lib/api/time-entries";
 import { useEffect, useState } from "react";
@@ -14,10 +14,10 @@ type DataContextType = {
   refreshClients: () => void;
   refreshTasks: () => void;
   refreshTimeEntries: () => void;
-  projects: Array<any> | null;
-  clients: Array<any> | null;
-  tasks: Array<any> | null;
-  timeEntries: Array<any> | null;
+  projects: Array<any>;
+  clients: Array<any>;
+  tasks: Array<any>;
+  timeEntries: Array<any>;
 };
 
 export const DataContext = createContext<DataContextType | null>(null);
@@ -28,10 +28,10 @@ export function DataProvider({
   children: React.ReactNode;
 }>) {
   const { user, token } = useAuth();
-  const [projects, setProjects] = useState<Array<any> | null>(null);
-  const [clients, setClients] = useState<Array<any> | null>(null);
-  const [tasks, setTasks] = useState<Array<any> | null>(null);
-  const [timeEntries, setTimeEntries] = useState<Array<any> | null>(null);
+  const [projects, setProjects] = useState<Array<any>>([]);
+  const [clients, setClients] = useState<Array<any>>([]);
+  const [tasks, setTasks] = useState<Array<any>>([]);
+  const [timeEntries, setTimeEntries] = useState<Array<any>>([]);
 
   useEffect(() => {
     getData();
@@ -39,46 +39,30 @@ export function DataProvider({
 
   async function getData() {
     if (!user || !token) return;
-    getUserProjects(user.id, token).then((data) => {
-      setProjects(data?.projects);
-    });
-    getUserClients(user.id, token).then((data) => {
-      setClients(data?.clients);
-    });
-    getUserTasks(user.id, token).then((data) => {
-      setTasks(data?.tasks);
-    });
-    getUserTimeEntries(user.id, token).then((data) => {
-      setTimeEntries(data?.timeEntries);
-    });
+    getUserProjects(user.id, token).then((p) => setProjects(p));
+    getUserClients(user.id, token).then((c) => setClients(c));
+    getUserTasks(user.id, token).then((t) => setTasks(t));
+    getUserTimeEntries(user.id, token).then((t) => setTimeEntries(t));
   }
 
   async function refreshProjects() {
     if (!user || !token) return;
-    getUserProjects(user.id, token).then((data) => {
-      setProjects(data?.projects);
-    });
+    getUserProjects(user.id, token).then((p) => setProjects(p));
   }
 
   async function refreshClients() {
     if (!user || !token) return;
-    getUserClients(user.id, token).then((data) => {
-      setClients(data?.clients);
-    });
+    getUserClients(user.id, token).then((c) => setClients(c));
   }
 
   async function refreshTasks() {
     if (!user || !token) return;
-    getUserTasks(user.id, token).then((data) => {
-      setTasks(data?.tasks);
-    });
+    getUserTasks(user.id, token).then((t) => setTasks(t));
   }
 
   async function refreshTimeEntries() {
     if (!user || !token) return;
-    getUserTimeEntries(user.id, token).then((data) => {
-      setTimeEntries(data?.timeEntries);
-    });
+    getUserTimeEntries(user.id, token).then((t) => setTimeEntries(t));
   }
 
   return (

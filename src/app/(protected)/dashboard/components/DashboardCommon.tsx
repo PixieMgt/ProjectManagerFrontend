@@ -22,19 +22,19 @@ export default function DashboardCommon({
   return (
     <>
       <div className="w-[50vw] mx-auto mt-8 p-4 border-2 rounded-xl border-white">
-        <h1 className="text-3xl">Welcome {user?.name}</h1>
+        <h1 className="text-4xl">Welcome {user?.name}</h1>
         <div>
           <Link href={"/projects"} className="underline">
             Projects
+          </Link>
+          <Link href={"/clients"} className="ml-4 underline">
+            Clients
           </Link>
           <Link href={"/tasks"} className="ml-4 underline">
             Tasks
           </Link>
           <Link href={"/time-entries"} className="ml-4 underline">
             Time Entries
-          </Link>
-          <Link href={"/activity"} className="ml-4 underline">
-            Activity
           </Link>
         </div>
         <button

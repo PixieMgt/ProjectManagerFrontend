@@ -1,6 +1,8 @@
-export default function CloseIcon() {
+import { IconColorType } from "@/lib/utils/IconColorType";
+
+export default function CloseIcon({ color }: { color: IconColorType }) {
   return (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill={color}>
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
@@ -23,14 +25,14 @@ export default function CloseIcon() {
                 fill="none"
                 id="_--Circle"
                 r="10"
-                stroke="#000000"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
               ></circle>{" "}
               <line
                 fill="none"
-                stroke="#000000"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -41,7 +43,7 @@ export default function CloseIcon() {
               ></line>{" "}
               <line
                 fill="none"
-                stroke="#000000"
+                stroke={color}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"

@@ -1,6 +1,7 @@
 "use client";
 
 import ClientModal from "@/components/ui/modal/client/ClientModal";
+import ProjectMemberModal from "@/components/ui/modal/project-member/ProjectMemberModal";
 import ProjectModal from "@/components/ui/modal/project/ProjectModal";
 import TaskModal from "@/components/ui/modal/task/TaskModal";
 import TimeEntryModal from "@/components/ui/modal/time-entry/TimeEntryModal";
@@ -12,6 +13,7 @@ export const modalMap = {
   client: ClientModal,
   task: TaskModal,
   timeEntry: TimeEntryModal,
+  projectMember: ProjectMemberModal,
 };
 
 export type ModalType = keyof typeof modalMap;

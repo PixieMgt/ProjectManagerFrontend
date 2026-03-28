@@ -1,5 +1,4 @@
 import SectionContainer from "@/components/ui/SectionContainer";
-import SectionModal from "@/components/ui/modal/SectionModal";
 import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
 
@@ -9,7 +8,6 @@ export default function DashboardDeveloper() {
 
   return (
     <>
-      <SectionModal />
       <div className="flex gap-8 m-8">
         <div className="flex-1">
           <SectionContainer

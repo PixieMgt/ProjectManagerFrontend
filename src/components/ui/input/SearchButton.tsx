@@ -1,8 +1,8 @@
-import CloseIcon from "@/components/ui/icons/CloseIcon";
 import { IconColorType } from "@/lib/utils/IconColorType";
 import { MouseEvent } from "react";
+import SearchIcon from "../icons/SearchIcon";
 
-export default function CloseButton({
+export default function SearchButton({
   onClick,
   color,
   className,
@@ -13,7 +13,7 @@ export default function CloseButton({
 }) {
   return (
     <div onClick={onClick} className={`${className} hover:cursor-pointer`}>
-      <CloseIcon color={color} />
+      <SearchIcon color={color} />
     </div>
   );
 }

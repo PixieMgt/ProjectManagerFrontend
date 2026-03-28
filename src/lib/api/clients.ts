@@ -15,7 +15,9 @@ export async function getUserClients(userId: number, token: string) {
     throw new Error(message || "getUserClients failed");
   }
 
-  return res.json();
+  const json = await res.json();
+
+  return json.clients;
 }
 
 export async function createClient(data: any, token: string) {

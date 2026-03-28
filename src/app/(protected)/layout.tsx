@@ -1,5 +1,6 @@
 "use client";
 
+import SectionModal from "@/components/ui/modal/SectionModal";
 import { ModalProvider } from "@/context/ModalContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
@@ -19,5 +20,10 @@ export default function ProtectedLayout({
 
   if (loading) return null;
   if (!user) return null;
-  return <ModalProvider>{children}</ModalProvider>;
+  return (
+    <ModalProvider>
+      <SectionModal />
+      {children}
+    </ModalProvider>
+  );
 }

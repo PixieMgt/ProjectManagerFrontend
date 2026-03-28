@@ -15,12 +15,13 @@ export async function getUserTasks(userId: number, token: string) {
     throw new Error(message || "getUserTasks failed");
   }
 
-  return res.json();
+  const json = await res.json();
+
+  return json.tasks;
 }
 
 export async function createTask(data: any, token: string) {
   if (!data || !token) return;
-  console.log(data);
   const res = await fetch(`${API_URL}/tasks`, {
     method: "POST",
     credentials: "include",
@@ -54,6 +55,7 @@ export async function updateTask(taskId: number, data: any, token: string) {
     },
     body: JSON.stringify({
       ...data,
+      ownerUserId: Number(data.ownerUserId),
       estimatedHours: Number(data.estimatedHours),
       projectId: Number(data.projectId),
     }),

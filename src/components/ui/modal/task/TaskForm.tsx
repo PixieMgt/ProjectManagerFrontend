@@ -3,6 +3,10 @@ import ModalFormContainer from "../../layout/ModalFormContainer";
 import ModalFormInput from "../../input/ModalFormInput";
 import ModalFormSelect from "../../input/ModalFormSelect";
 import ModalFormSelectProject from "../../input/ModalFormSelectProject";
+import ModalReadField from "../../display/ModalReadField";
+import getProjectNameFromId from "@/lib/utils/getProjectNameFromId";
+import { useAuth } from "@/hooks/useAuth";
+import ModalFormSelectProjectMember from "../../input/ModalFormSelectProjectMember";
 
 export default function TaskForm({
   defaultValues,
@@ -11,7 +15,10 @@ export default function TaskForm({
   defaultValues: any;
   onSubmit: (form: any) => void;
 }) {
+  const { user } = useAuth();
+
   const [form, setForm] = useState({
+    ownerUserId: defaultValues?.ownerUserId || user?.id,
     title: defaultValues?.title || "",
     description: defaultValues?.description || "",
     projectId: defaultValues?.projectId || "",
@@ -50,11 +57,25 @@ export default function TaskForm({
         value={form.description}
         onChange={handleChange}
       />
-      <ModalFormSelectProject
-        name="projectId"
-        label="Project"
-        value={form.projectId}
+      {defaultValues?.projectId ? (
+        <ModalReadField
+          label="Project"
+          value={getProjectNameFromId(defaultValues?.projectId)}
+        />
+      ) : (
+        <ModalFormSelectProject
+          name="projectId"
+          label="Project"
+          value={form.projectId}
+          onChange={handleChange}
+        />
+      )}
+      <ModalFormSelectProjectMember
+        name="ownerUserId"
+        label="Assignee"
+        value={form.ownerUserId}
         onChange={handleChange}
+        projectId={form.projectId}
       />
       <ModalFormSelect
         name="status"

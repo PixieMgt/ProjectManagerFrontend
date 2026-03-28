@@ -1,10 +1,10 @@
 import ModalReadContainer from "@/components/ui/layout/ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
 import { useData } from "@/hooks/useData";
+import normalizeDate from "@/lib/utils/normalizeDate";
+import getClientNameFromId from "@/lib/utils/getClientNameFromId";
 
 export default function ProjectReadView({ project }: { project: any }) {
-  const { clients } = useData();
-
   return (
     <ModalReadContainer>
       <ModalReadField label="Name" value={project?.name} />
@@ -14,7 +14,7 @@ export default function ProjectReadView({ project }: { project: any }) {
       />
       <ModalReadField
         label="Client"
-        value={clients?.find((c) => c.id === project.clientId).name}
+        value={getClientNameFromId(project.clientId)}
       />
       <ModalReadField label="Status" value={project?.status} />
       <ModalReadField
@@ -23,11 +23,11 @@ export default function ProjectReadView({ project }: { project: any }) {
       />
       <ModalReadField
         label="Start Date"
-        value={project?.startDate?.split("T")[0] || "No start date set"}
+        value={normalizeDate(project?.startDate) || "No start date set"}
       />
       <ModalReadField
         label="Deadline"
-        value={project?.deadline?.split("T")[0] || "No deadline set"}
+        value={normalizeDate(project?.deadline) || "No deadline set"}
       />
     </ModalReadContainer>
   );

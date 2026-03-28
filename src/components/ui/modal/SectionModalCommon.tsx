@@ -26,16 +26,25 @@ export default function SectionModalCommon({
           <div className="flex items-center">
             <h1 className="text-3xl">{title}</h1>
             {mode === "read" && (
-              <EditButton onClick={setEditMode} className="flex h-8 w-8 ml-4" />
+              <EditButton
+                onClick={setEditMode}
+                color="black"
+                className="flex h-8 w-8 ml-4"
+              />
             )}
             {(mode === "read" || mode === "update") && (
               <DeleteButton
                 onClick={deleteItem}
-                className="flex h-9 w-9 ml-4"
+                color="black"
+                className="flex h-8 w-8 ml-4"
               />
             )}
           </div>
-          <CloseButton onClick={closeModal} className="h-10 w-10" />
+          <CloseButton
+            onClick={closeModal}
+            color="black"
+            className="h-10 w-10"
+          />
         </div>
         {children}
       </div>

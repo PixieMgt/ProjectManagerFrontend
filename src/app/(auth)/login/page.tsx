@@ -3,6 +3,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import { loginUser } from "@/lib/api/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitEvent, useEffect, useState } from "react";
 
@@ -79,6 +80,9 @@ export default function Login() {
         >
           {loginLoading ? "Logging in..." : "Log in"}
         </button>
+        <Link href={"/register"} className="block text-sm underline">
+          Don't have an account?
+        </Link>
       </form>
     </main>
   );

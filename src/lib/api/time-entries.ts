@@ -15,11 +15,12 @@ export async function getUserTimeEntries(userId: number, token: string) {
     throw new Error(message || "getUserTimeEntries failed");
   }
 
-  return res.json();
+  const json = await res.json();
+
+  return json.timeEntries;
 }
 
 export async function createTimeEntry(data: any, token: string) {
-  console.log(data);
   if (!data || !token) return;
   const res = await fetch(`${API_URL}/time-entries`, {
     method: "POST",
