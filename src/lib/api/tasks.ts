@@ -86,3 +86,25 @@ export async function deleteTask(taskId: number, token: string) {
 
   return res.json();
 }
+
+export async function getTaskProject(taskId: number, token: string) {
+  if (!taskId || !token) return;
+  const res = await fetch(`${API_URL}/tasks/${taskId}/project`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (res.status === 404) return;
+
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(message || "getTaskProject failed");
+  }
+
+  const json = await res.json();
+
+  return json.project;
+}

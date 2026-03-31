@@ -1,3 +1,4 @@
+import PageHeader from "@/components/ui/layout/PageHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { logoutUser } from "@/lib/api/auth";
 import Link from "next/link";
@@ -21,8 +22,7 @@ export default function DashboardCommon({
 
   return (
     <>
-      <div className="w-[50vw] mx-auto mt-8 p-4 border-2 rounded-xl border-white">
-        <h1 className="text-4xl">Welcome {user?.name}</h1>
+      <PageHeader title={`Welcome ${user?.name}`}>
         <div>
           <Link href={"/projects"} className="underline">
             Projects
@@ -43,7 +43,7 @@ export default function DashboardCommon({
         >
           Logout
         </button>
-      </div>
+      </PageHeader>
       {children}
     </>
   );

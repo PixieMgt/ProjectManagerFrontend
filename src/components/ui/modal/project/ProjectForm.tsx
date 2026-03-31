@@ -3,9 +3,7 @@ import ModalFormInput from "../../input/ModalFormInput";
 import ModalFormSelectClient from "../../input/ModalFormSelectClient";
 import ModalFormSelect from "../../input/ModalFormSelect";
 import ModalFormContainer from "@/components/ui/layout/ModalFormContainer";
-import normalizeDate from "@/lib/utils/normalizeDate";
 import ModalReadField from "../../display/ModalReadField";
-import getClientNameFromId from "@/lib/utils/getClientNameFromId";
 
 export default function ProjectForm({
   defaultValues,
@@ -17,11 +15,11 @@ export default function ProjectForm({
   const [form, setForm] = useState({
     name: defaultValues?.name || "",
     description: defaultValues?.description || "",
-    clientId: defaultValues?.clientId || "",
+    client: defaultValues?.client || {},
     status: defaultValues?.status || "planning",
     hourlyRate: defaultValues?.hourlyRate || 0,
-    startDate: normalizeDate(defaultValues?.startDate) || "",
-    deadline: normalizeDate(defaultValues?.deadline) || "",
+    startDate: defaultValues?.startDate || "",
+    deadline: defaultValues?.deadline || "",
   });
 
   function handleChange(e: ChangeEvent<any>) {
@@ -54,16 +52,13 @@ export default function ProjectForm({
         value={form.description}
         onChange={handleChange}
       />
-      {defaultValues?.clientId ? (
-        <ModalReadField
-          label="Client"
-          value={getClientNameFromId(defaultValues?.clientId)}
-        />
+      {defaultValues?.client?.id ? (
+        <ModalReadField label="Client" value={defaultValues?.client?.name} />
       ) : (
         <ModalFormSelectClient
           name="clientId"
           label="Client"
-          value={form.clientId}
+          value={form.client.id}
           onChange={handleChange}
         />
       )}

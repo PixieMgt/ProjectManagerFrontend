@@ -2,7 +2,7 @@ import AddButton from "@/components/ui/input/AddButton";
 import EditButton from "@/components/ui/input/EditButton";
 import { MouseEvent } from "react";
 
-export default function ProjectDetailSectionCommon({
+export default function DetailSectionCommon({
   title,
   addItem,
   setEditMode,

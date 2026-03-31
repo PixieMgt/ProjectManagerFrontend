@@ -19,7 +19,11 @@ export async function getProject(projectId: number, token: string) {
 
   const json = await res.json();
 
-  return json.project;
+  return {
+    project: json.project,
+    members: json.members,
+    tasks: json.tasks,
+  };
 }
 
 export async function getUserProjects(userId: number, token: string) {
@@ -212,48 +216,4 @@ export async function deleteProjectMember(
   }
 
   return res.json();
-}
-
-export async function getProjectTasks(projectId: number, token: string) {
-  if (!projectId || !token) return;
-  const res = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      Authorization: token,
-    },
-  });
-
-  if (res.status === 404) return;
-
-  if (!res.ok) {
-    const message = await res.text();
-    throw new Error(message || "getProjectTasks failed");
-  }
-
-  const json = await res.json();
-
-  return json.tasks;
-}
-
-export async function getProjectTimeEntries(projectId: number, token: string) {
-  if (!projectId || !token) return;
-  const res = await fetch(`${API_URL}/projects/${projectId}/time-entries`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      Authorization: token,
-    },
-  });
-
-  if (res.status === 404) return;
-
-  if (!res.ok) {
-    const message = await res.text();
-    throw new Error(message || "getProjectTimeEntries failed");
-  }
-
-  const json = await res.json();
-
-  return json.timeEntries;
 }

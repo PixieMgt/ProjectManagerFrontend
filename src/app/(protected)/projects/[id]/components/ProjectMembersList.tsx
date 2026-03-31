@@ -1,5 +1,5 @@
 import { useModal } from "@/hooks/useModal";
-import ProjectDetailSectionCommon from "./ProjectDetailSectionCommon";
+import ProjectDetailSectionCommon from "../../../../../components/ui/layout/DetailSectionCommon";
 import ProjectMembersListItem from "./ProjectMembersListItem";
 
 export default function ProjectMembersList({
@@ -19,7 +19,7 @@ export default function ProjectMembersList({
       <ul>
         {projectMembers?.length > 0 &&
           projectMembers.map((pm: any) => (
-            <ProjectMembersListItem key={pm.userId} projectMember={pm} />
+            <ProjectMembersListItem key={pm.id} projectMember={pm} />
           ))}
       </ul>
     </ProjectDetailSectionCommon>

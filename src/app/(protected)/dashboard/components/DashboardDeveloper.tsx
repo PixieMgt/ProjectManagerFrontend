@@ -4,6 +4,7 @@ import { useModal } from "@/hooks/useModal";
 
 export default function DashboardDeveloper() {
   const { projects, clients, tasks, timeEntries } = useData();
+
   const { openModal } = useModal();
 
   return (

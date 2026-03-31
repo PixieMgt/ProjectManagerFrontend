@@ -1,6 +1,6 @@
 import { useModal } from "@/hooks/useModal";
 import DetailsField from "./DetailsField";
-import ProjectDetailSectionCommon from "./ProjectDetailSectionCommon";
+import ProjectDetailSectionCommon from "../../../../../components/ui/layout/DetailSectionCommon";
 
 export default function ClientDetails({ client }: { client: any }) {
   const { openModal } = useModal();

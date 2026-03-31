@@ -1,6 +1,6 @@
-import normalizeDate from "@/lib/utils/normalizeDate";
+import normalizeDate from "@/lib/normalizers/normalizeDate";
 import DetailsField from "./DetailsField";
-import ProjectDetailSectionCommon from "./ProjectDetailSectionCommon";
+import ProjectDetailSectionCommon from "../../../../../components/ui/layout/DetailSectionCommon";
 import { useModal } from "@/hooks/useModal";
 
 export default function ProjectDetails({ project }: { project: any }) {

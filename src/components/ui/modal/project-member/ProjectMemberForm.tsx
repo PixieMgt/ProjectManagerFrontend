@@ -11,10 +11,10 @@ export default function ProjectMemberForm({
   defaultValues: any;
   onSubmit: (form: any) => void;
 }) {
+  console.log(defaultValues);
   const [form, setForm] = useState({
-    userEmail: defaultValues?.userEmail || "",
+    userEmail: "",
     user: defaultValues,
-    role: defaultValues?.role || "viewer",
   });
 
   function handleChange(e: ChangeEvent<any>) {
@@ -31,7 +31,7 @@ export default function ProjectMemberForm({
 
   return (
     <ModalFormContainer onSubmit={handleSubmit}>
-      {defaultValues?.userId ? (
+      {defaultValues?.id ? (
         <ModalReadField label="Name" value={defaultValues?.name} />
       ) : (
         <ModalFormSearchProjectMember
@@ -46,7 +46,7 @@ export default function ProjectMemberForm({
       <ModalFormSelect
         name="role"
         label="Role"
-        value={form.role}
+        value={form.user?.role}
         options={["owner", "developer", "tester", "viewer"]}
         onChange={handleChange}
       />

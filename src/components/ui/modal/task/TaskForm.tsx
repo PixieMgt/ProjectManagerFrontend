@@ -4,9 +4,8 @@ import ModalFormInput from "../../input/ModalFormInput";
 import ModalFormSelect from "../../input/ModalFormSelect";
 import ModalFormSelectProject from "../../input/ModalFormSelectProject";
 import ModalReadField from "../../display/ModalReadField";
-import getProjectNameFromId from "@/lib/utils/getProjectNameFromId";
-import { useAuth } from "@/hooks/useAuth";
 import ModalFormSelectProjectMember from "../../input/ModalFormSelectProjectMember";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TaskForm({
   defaultValues,
@@ -18,10 +17,10 @@ export default function TaskForm({
   const { user } = useAuth();
 
   const [form, setForm] = useState({
-    ownerUserId: defaultValues?.ownerUserId || user?.id,
+    ownerUserId: defaultValues?.owner?.id || user.id,
     title: defaultValues?.title || "",
     description: defaultValues?.description || "",
-    projectId: defaultValues?.projectId || "",
+    projectId: defaultValues?.project?.id || -1,
     status: defaultValues?.status || "todo",
     priority: defaultValues?.priority || "medium",
     estimatedHours: defaultValues?.estimatedHours || 0,
@@ -57,11 +56,8 @@ export default function TaskForm({
         value={form.description}
         onChange={handleChange}
       />
-      {defaultValues?.projectId ? (
-        <ModalReadField
-          label="Project"
-          value={getProjectNameFromId(defaultValues?.projectId)}
-        />
+      {defaultValues?.project?.id ? (
+        <ModalReadField label="Project" value={defaultValues?.project?.name} />
       ) : (
         <ModalFormSelectProject
           name="projectId"

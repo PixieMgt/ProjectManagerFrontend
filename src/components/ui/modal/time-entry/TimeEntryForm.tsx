@@ -1,16 +1,10 @@
-import { ChangeEvent, SubmitEvent, useEffect, useState } from "react";
+import { ChangeEvent, SubmitEvent, useState } from "react";
 import ModalFormContainer from "../../layout/ModalFormContainer";
 import ModalFormInput from "../../input/ModalFormInput";
 import ModalFormSelectTask from "../../input/ModalFormSelectTask";
 import ModalFormSelectProject from "../../input/ModalFormSelectProject";
-import normalizeTime from "@/lib/utils/normalizeTime";
-import normalizeDate from "@/lib/utils/normalizeDate";
-import getProjectIdFromTaskId from "@/lib/utils/getTaskProjectId";
 import ModalReadField from "../../display/ModalReadField";
-import getTaskTitleFromId from "@/lib/utils/getTaskTitleFromId";
-import getProjectNameFromId from "@/lib/utils/getProjectNameFromId";
 import { useAuth } from "@/hooks/useAuth";
-import getUserNameFromId from "@/lib/utils/getUserNameFromId";
 
 export default function TimeEntryForm({
   defaultValues,
@@ -20,26 +14,17 @@ export default function TimeEntryForm({
   onSubmit: (form: any) => void;
 }) {
   const { user } = useAuth();
-  const { token } = useAuth();
 
   const [form, setForm] = useState({
-    userId: defaultValues?.userId || user.id,
-    projectId:
-      defaultValues?.projectId || getProjectIdFromTaskId(defaultValues?.taskId),
-    taskId: defaultValues?.taskId || "",
+    userId: defaultValues?.user?.id || user.id,
+    projectId: defaultValues?.project?.id || -1,
+    taskId: defaultValues?.task?.id || "",
     comment: defaultValues?.comment || "",
-    date: normalizeDate(defaultValues?.date) || "",
-    startTime: normalizeTime(defaultValues?.startTime) || "",
-    endTime: normalizeTime(defaultValues?.endTime) || "",
+    date: defaultValues?.date || "",
+    startTime: defaultValues?.startTime || "",
+    endTime: defaultValues?.endTime || "",
     durationMinutes: defaultValues?.durationMinutes || 0,
   });
-  const [assigneeName, setAssigneeName] = useState<string>("");
-
-  useEffect(() => {
-    getUserNameFromId(form?.userId, token).then((name) => {
-      setAssigneeName(name);
-    });
-  }, []);
 
   function handleChange(e: ChangeEvent<any>) {
     setForm({
@@ -55,11 +40,8 @@ export default function TimeEntryForm({
 
   return (
     <ModalFormContainer onSubmit={handleSubmit}>
-      {defaultValues?.projectId || defaultValues?.taskId ? (
-        <ModalReadField
-          label="Project"
-          value={getProjectNameFromId(form.projectId)}
-        />
+      {defaultValues?.project?.id || defaultValues?.taskId ? (
+        <ModalReadField label="Project" value={defaultValues?.project?.name} />
       ) : (
         <ModalFormSelectProject
           name="projectId"
@@ -68,8 +50,8 @@ export default function TimeEntryForm({
           onChange={handleChange}
         />
       )}
-      {defaultValues?.taskId ? (
-        <ModalReadField label="Task" value={getTaskTitleFromId(form.taskId)} />
+      {defaultValues?.task?.id ? (
+        <ModalReadField label="Task" value={defaultValues?.task?.title} />
       ) : (
         <ModalFormSelectTask
           name="taskId"
@@ -87,7 +69,10 @@ export default function TimeEntryForm({
         value={form.comment}
         onChange={handleChange}
       />
-      <ModalReadField label="User" value={assigneeName} />
+      <ModalReadField
+        label="User"
+        value={defaultValues?.user?.name || user.name}
+      />
       <ModalFormInput
         name="date"
         type="date"

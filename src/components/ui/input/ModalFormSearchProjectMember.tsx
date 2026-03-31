@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import SearchButton from "./SearchButton";
 import { useAuth } from "@/hooks/useAuth";
 import { searchUserByEmail } from "@/lib/api/users";
+import { ProjectMember } from "@/lib/models/ProjectMember";
 
 export default function ModalFormSearchProjectMember({
   name,
@@ -15,7 +16,7 @@ export default function ModalFormSearchProjectMember({
   label: string;
   searchValue: string;
   result: any;
-  setResult: React.Dispatch<React.SetStateAction<any>>;
+  setResult: React.Dispatch<React.SetStateAction<ProjectMember>>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   const { token } = useAuth();

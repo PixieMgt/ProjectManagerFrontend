@@ -1,8 +1,6 @@
 import ModalReadContainer from "@/components/ui/layout/ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
-import { useData } from "@/hooks/useData";
-import normalizeDate from "@/lib/utils/normalizeDate";
-import getClientNameFromId from "@/lib/utils/getClientNameFromId";
+import normalizeDate from "@/lib/normalizers/normalizeDate";
 
 export default function ProjectReadView({ project }: { project: any }) {
   return (
@@ -12,10 +10,7 @@ export default function ProjectReadView({ project }: { project: any }) {
         label="Description"
         value={project?.description || "No description"}
       />
-      <ModalReadField
-        label="Client"
-        value={getClientNameFromId(project.clientId)}
-      />
+      <ModalReadField label="Client" value={project?.client?.name} />
       <ModalReadField label="Status" value={project?.status} />
       <ModalReadField
         label="Hourly Rate"

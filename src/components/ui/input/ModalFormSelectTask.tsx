@@ -29,7 +29,7 @@ export default function ModalFormSelectTask({
           <option value={-1}>Select a task</option>
           {tasks &&
             tasks.map((t) => {
-              if (t.projectId !== projectId) return;
+              if (t.project?.id !== projectId) return;
               return (
                 <option key={t.id} value={t.id}>
                   {t.title}
