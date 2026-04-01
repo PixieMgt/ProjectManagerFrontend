@@ -20,8 +20,8 @@ export default function ListPage({
   handleEdit: (e: MouseEvent<HTMLDivElement>, data: any) => void;
   handleDelete: (e: MouseEvent<HTMLDivElement>, id: number) => void;
 }) {
-  function getValue(obj: any, path: any) {
-    return path.split(".").reduce((acc: any, part: any) => acc?.[part], obj);
+  function getValue(obj: any, path: string) {
+    return path.split(".").reduce((acc, part) => acc?.[part], obj);
   }
 
   return (

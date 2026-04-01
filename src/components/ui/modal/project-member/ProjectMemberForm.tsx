@@ -11,7 +11,6 @@ export default function ProjectMemberForm({
   defaultValues: any;
   onSubmit: (form: any) => void;
 }) {
-  console.log(defaultValues);
   const [form, setForm] = useState({
     userEmail: "",
     user: defaultValues,

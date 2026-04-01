@@ -10,10 +10,6 @@ import { Client } from "@/lib/models/client";
 import { Project } from "@/lib/models/project";
 import { Task } from "@/lib/models/task";
 import { TimeEntry } from "@/lib/models/timeEntry";
-import { normalizeClient } from "@/lib/normalizers/normalizeClient";
-import { normalizeProject } from "@/lib/normalizers/normalizeProject";
-import { normalizeTask } from "@/lib/normalizers/normalizeTask";
-import { normalizeTimeEntry } from "@/lib/normalizers/normalizeTimeEntry";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 
@@ -52,65 +48,38 @@ export function DataProvider({
     const data = await getUser(user.id, token);
     if (!data) return;
 
-    const normalizedClients = data.clients.map((c: any) => normalizeClient(c));
-    setClients(normalizedClients);
-
-    const normalizedProjects = await Promise.all(
-      data.projects.map((p: any) => normalizeProject(p)),
-    );
-    setProjects(normalizedProjects);
-
-    const normalizedTasks = await Promise.all(
-      data.tasks.map((t: any) => normalizeTask(t)),
-    );
-    setTasks(normalizedTasks);
-
-    const normalizedTimeEntries = await Promise.all(
-      data.timeEntries.map((t: any) => normalizeTimeEntry(t)),
-    );
-    setTimeEntries(normalizedTimeEntries);
+    setClients(data?.clients);
+    setProjects(data?.projects);
+    setTasks(data?.tasks);
+    setTimeEntries(data?.timeEntries);
   }
 
   async function refreshProjects() {
     if (!user || !token) return;
 
-    const rawProjects = await getUserProjects(user.id, token);
-
-    const normalizedProjects = await Promise.all(
-      rawProjects.map((p: any) => normalizeProject(p)),
-    );
-    setProjects(normalizedProjects);
+    const { projects } = await getUserProjects(user.id, token);
+    setProjects(projects);
   }
 
   async function refreshClients() {
     if (!user || !token) return;
 
-    const rawClients = await getUserClients(user.id, token);
-
-    const normalizedClients = rawClients.map((c: any) => normalizeClient(c));
-    setClients(normalizedClients);
+    const { clients } = await getUserClients(user.id, token);
+    setClients(clients);
   }
 
   async function refreshTasks() {
     if (!user || !token) return;
 
-    const rawTasks = await getUserTasks(user.id, token);
-
-    const normalizedTasks = await Promise.all(
-      rawTasks.map((t: any) => normalizeTask(t)),
-    );
-    setTasks(normalizedTasks);
+    const { tasks } = await getUserTasks(user.id, token);
+    setTasks(tasks);
   }
 
   async function refreshTimeEntries() {
     if (!user || !token) return;
 
-    const rawTimeEntries = await getUserTimeEntries(user.id, token);
-
-    const normalizedTimeEntries = await Promise.all(
-      rawTimeEntries.map((t: any) => normalizeTimeEntry(t)),
-    );
-    setTimeEntries(normalizedTimeEntries);
+    const { timeEntries } = await getUserTimeEntries(user.id, token);
+    setTimeEntries(timeEntries);
   }
 
   return (

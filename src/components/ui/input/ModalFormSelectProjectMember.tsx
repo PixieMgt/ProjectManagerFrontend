@@ -23,7 +23,9 @@ export default function ModalFormSelectProjectMember({
 
   useEffect(() => {
     if (projectId < 0) return;
-    getProjectMembers(projectId, token).then((pm) => setProjectMembers(pm));
+    getProjectMembers(projectId, token).then((data) =>
+      setProjectMembers(data?.members),
+    );
   }, [projectId]);
 
   return (

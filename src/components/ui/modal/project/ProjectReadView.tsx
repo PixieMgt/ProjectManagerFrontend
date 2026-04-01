@@ -1,6 +1,5 @@
 import ModalReadContainer from "@/components/ui/layout/ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
-import normalizeDate from "@/lib/normalizers/normalizeDate";
 
 export default function ProjectReadView({ project }: { project: any }) {
   return (
@@ -18,11 +17,11 @@ export default function ProjectReadView({ project }: { project: any }) {
       />
       <ModalReadField
         label="Start Date"
-        value={normalizeDate(project?.startDate) || "No start date set"}
+        value={project?.startDate || "No start date set"}
       />
       <ModalReadField
         label="Deadline"
-        value={normalizeDate(project?.deadline) || "No deadline set"}
+        value={project?.deadline || "No deadline set"}
       />
     </ModalReadContainer>
   );

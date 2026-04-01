@@ -6,18 +6,13 @@ import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
 import { deleteProject } from "@/lib/api/projects";
 import { useRouter } from "next/navigation";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent } from "react";
 
 export default function Projects() {
   const router = useRouter();
   const { token } = useAuth();
   const { projects, refreshProjects } = useData();
   const { openModal } = useModal();
-
-  useEffect(() => {
-    if (!projects) return;
-    console.log(projects);
-  }, [projects]);
 
   function handleClick(e: MouseEvent<HTMLLIElement>, id: number) {
     e.preventDefault();
