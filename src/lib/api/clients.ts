@@ -1,27 +1,38 @@
+import { Client } from "../models/client";
+import { normalizeClient } from "../normalizers/normalizeClient";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getUserClients(userId: number, token: string) {
-  if (!userId || !token) return;
+  const result = {
+    clients: null,
+  };
+
+  if (!userId || !token) return result;
+
   const res = await fetch(`${API_URL}/users/${userId}/clients`, {
     method: "GET",
     credentials: "include",
     headers: { Authorization: token },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getUserClients failed");
   }
 
   const json = await res.json();
-
-  return json.clients;
+  return {
+    clients: json.clients
+      ? json.clients.map((c: Client) => normalizeClient(c))
+      : null,
+  };
 }
 
 export async function createClient(data: any, token: string) {
-  if (!data || !token) return;
+  if (!data || !token) return null;
+
   const res = await fetch(`${API_URL}/clients`, {
     method: "POST",
     credentials: "include",
@@ -41,7 +52,8 @@ export async function createClient(data: any, token: string) {
 }
 
 export async function updateClient(clientId: number, data: any, token: string) {
-  if (!clientId || !data || !token) return;
+  if (!clientId || !data || !token) return null;
+
   const res = await fetch(`${API_URL}/clients/${clientId}`, {
     method: "PATCH",
     credentials: "include",
@@ -52,6 +64,7 @@ export async function updateClient(clientId: number, data: any, token: string) {
     body: JSON.stringify(data),
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "updateClient failed");
@@ -61,7 +74,8 @@ export async function updateClient(clientId: number, data: any, token: string) {
 }
 
 export async function deleteClient(clientId: number, token: string) {
-  if (!clientId || !token) return;
+  if (!clientId || !token) return null;
+
   const res = await fetch(`${API_URL}/clients/${clientId}`, {
     method: "DELETE",
     credentials: "include",
@@ -70,6 +84,7 @@ export async function deleteClient(clientId: number, token: string) {
     },
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "deleteClient failed");

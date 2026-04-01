@@ -9,11 +9,11 @@ export interface Project {
   client: Client;
   owner?: User;
   name: string;
-  description: string;
+  description?: string;
   status: string;
-  hourlyRate: number;
-  startDate: string;
-  deadline: string;
+  hourlyRate?: number;
+  startDate?: string;
+  deadline?: string;
   members: Array<ProjectMember>;
   tasks?: Array<Task>;
   timeEntries?: Array<TimeEntry>;

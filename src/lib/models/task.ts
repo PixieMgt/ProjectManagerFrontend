@@ -6,8 +6,8 @@ export interface Task {
   project: Project;
   owner: User;
   title: string;
-  description: string;
+  description?: string;
   status: string;
   priority: string;
-  estimatedHours: number;
+  estimatedHours?: number;
 }

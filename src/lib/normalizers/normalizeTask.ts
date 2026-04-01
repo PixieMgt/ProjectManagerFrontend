@@ -1,6 +1,6 @@
 import { Task } from "../models/task";
 
-export async function normalizeTask(raw: any): Promise<Task> {
+export function normalizeTask(raw: any): Task {
   return {
     id: raw.id,
     project: raw.project || undefined,

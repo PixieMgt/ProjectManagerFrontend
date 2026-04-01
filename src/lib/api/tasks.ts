@@ -1,27 +1,37 @@
+import { Task } from "../models/task";
+import { normalizeProject } from "../normalizers/normalizeProject";
+import { normalizeTask } from "../normalizers/normalizeTask";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getUserTasks(userId: number, token: string) {
-  if (!userId || !token) return;
+  const result = {
+    tasks: null,
+  };
+
+  if (!userId || !token) return result;
+
   const res = await fetch(`${API_URL}/users/${userId}/tasks`, {
     method: "GET",
     credentials: "include",
     headers: { Authorization: token },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getUserTasks failed");
   }
 
   const json = await res.json();
-
-  return json.tasks;
+  return {
+    tasks: json.tasks ? json.tasks.map((t: Task) => normalizeTask(t)) : null,
+  };
 }
 
 export async function createTask(data: any, token: string) {
-  if (!data || !token) return;
+  if (!data || !token) return null;
+
   const res = await fetch(`${API_URL}/tasks`, {
     method: "POST",
     credentials: "include",
@@ -45,7 +55,8 @@ export async function createTask(data: any, token: string) {
 }
 
 export async function updateTask(taskId: number, data: any, token: string) {
-  if (!taskId || !data || !token) return;
+  if (!taskId || !data || !token) return null;
+
   const res = await fetch(`${API_URL}/tasks/${taskId}`, {
     method: "PATCH",
     credentials: "include",
@@ -61,6 +72,7 @@ export async function updateTask(taskId: number, data: any, token: string) {
     }),
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "updateTask");
@@ -70,7 +82,8 @@ export async function updateTask(taskId: number, data: any, token: string) {
 }
 
 export async function deleteTask(taskId: number, token: string) {
-  if (!taskId || !token) return;
+  if (!taskId || !token) return null;
+
   const res = await fetch(`${API_URL}/tasks/${taskId}`, {
     method: "DELETE",
     credentials: "include",
@@ -79,6 +92,7 @@ export async function deleteTask(taskId: number, token: string) {
     },
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "deleteTask failed");
@@ -88,7 +102,12 @@ export async function deleteTask(taskId: number, token: string) {
 }
 
 export async function getTaskProject(taskId: number, token: string) {
-  if (!taskId || !token) return;
+  const result = {
+    project: null,
+  };
+
+  if (!taskId || !token) return result;
+
   const res = await fetch(`${API_URL}/tasks/${taskId}/project`, {
     method: "GET",
     credentials: "include",
@@ -97,14 +116,14 @@ export async function getTaskProject(taskId: number, token: string) {
     },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getTaskProject failed");
   }
 
   const json = await res.json();
-
-  return json.project;
+  return {
+    project: json.project ? normalizeProject(json.project) : null,
+  };
 }

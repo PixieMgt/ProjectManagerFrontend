@@ -1,8 +1,8 @@
 import { Project } from "../models/project";
 import normalizeDate from "./normalizeDate";
 
-export async function normalizeProject(raw: any): Promise<Project> {
-  const temp = {
+export function normalizeProject(raw: any): Project {
+  return {
     id: raw.id,
     client: raw.client,
     name: raw.name,
@@ -13,5 +13,4 @@ export async function normalizeProject(raw: any): Promise<Project> {
     deadline: normalizeDate(raw.deadline),
     members: raw.members,
   };
-  return temp;
 }

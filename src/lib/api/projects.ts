@@ -1,7 +1,21 @@
+import { Project } from "../models/project";
+import { ProjectMember } from "../models/ProjectMember";
+import { Task } from "../models/task";
+import { normalizeProject } from "../normalizers/normalizeProject";
+import { normalizeProjectMember } from "../normalizers/normalizeProjectMember";
+import { normalizeTask } from "../normalizers/normalizeTask";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getProject(projectId: number, token: string) {
-  if (!projectId || !token) return;
+  const result = {
+    project: null,
+    members: null,
+    tasks: null,
+  };
+
+  if (!projectId || !token) return result;
+
   const res = await fetch(`${API_URL}/projects/${projectId}`, {
     method: "GET",
     credentials: "include",
@@ -10,44 +24,52 @@ export async function getProject(projectId: number, token: string) {
     },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getProject failed");
   }
 
   const json = await res.json();
-
   return {
-    project: json.project,
-    members: json.members,
-    tasks: json.tasks,
+    project: json.project ? normalizeProject(json.project) : null,
+    members: json.members
+      ? json.members.map((m: ProjectMember) => normalizeProjectMember(m))
+      : null,
+    tasks: json.tasks ? json.tasks.map((t: Task) => normalizeTask(t)) : null,
   };
 }
 
 export async function getUserProjects(userId: number, token: string) {
-  if (!userId || !token) return;
+  const result = {
+    projects: null,
+  };
+
+  if (!userId || !token) return result;
+
   const res = await fetch(`${API_URL}/users/${userId}/projects`, {
     method: "GET",
     credentials: "include",
     headers: { Authorization: token },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getUserProjects failed");
   }
 
   const json = await res.json();
-
-  return json.projects;
+  return {
+    projects: json.projects
+      ? json.projects.map((p: Project) => normalizeProject(p))
+      : null,
+  };
 }
 
 export async function createProject(data: any, token: string) {
-  if (!data || !token) return;
+  if (!data || !token) return null;
+
   const res = await fetch(`${API_URL}/projects`, {
     method: "POST",
     credentials: "include",
@@ -75,7 +97,8 @@ export async function updateProject(
   data: any,
   token: string,
 ) {
-  if (!projectId || !data || !token) return;
+  if (!projectId || !data || !token) return null;
+
   const res = await fetch(`${API_URL}/projects/${projectId}`, {
     method: "PATCH",
     credentials: "include",
@@ -89,6 +112,7 @@ export async function updateProject(
     }),
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "updateProject failed");
@@ -98,7 +122,8 @@ export async function updateProject(
 }
 
 export async function deleteProject(projectId: number, token: string) {
-  if (!projectId || !token) return;
+  if (!projectId || !token) return null;
+
   const res = await fetch(`${API_URL}/projects/${projectId}`, {
     method: "DELETE",
     credentials: "include",
@@ -107,6 +132,7 @@ export async function deleteProject(projectId: number, token: string) {
     },
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "deleteProject failed");
@@ -116,7 +142,12 @@ export async function deleteProject(projectId: number, token: string) {
 }
 
 export async function getProjectMembers(projectId: number, token: string) {
-  if (!projectId || !token) return;
+  const result = {
+    members: null,
+  };
+
+  if (!projectId || !token) return result;
+
   const res = await fetch(`${API_URL}/projects/${projectId}/members`, {
     method: "GET",
     credentials: "include",
@@ -125,16 +156,18 @@ export async function getProjectMembers(projectId: number, token: string) {
     },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getProjectMembers failed");
   }
 
   const json = await res.json();
-
-  return json.members;
+  return {
+    members: json.members
+      ? json.members.map((m: ProjectMember) => normalizeProjectMember(m))
+      : null,
+  };
 }
 
 export async function createProjectMember(
@@ -142,7 +175,8 @@ export async function createProjectMember(
   data: any,
   token: string,
 ) {
-  if (!projectId || !data || !token) return;
+  if (!projectId || !data || !token) return null;
+
   const res = await fetch(`${API_URL}/projects/${projectId}/members`, {
     method: "POST",
     credentials: "include",
@@ -167,7 +201,8 @@ export async function updateProjectMember(
   data: any,
   token: string,
 ) {
-  if (!projectId || !userId || !data || !token) return;
+  if (!projectId || !userId || !data || !token) return null;
+
   const res = await fetch(
     `${API_URL}/projects/${projectId}/members/${userId}`,
     {
@@ -181,8 +216,7 @@ export async function updateProjectMember(
     },
   );
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "updateProjectMember failed");
@@ -196,7 +230,8 @@ export async function deleteProjectMember(
   userId: number,
   token: string,
 ) {
-  if (!projectId || !userId || !token) return;
+  if (!projectId || !userId || !token) return null;
+
   const res = await fetch(
     `${API_URL}/projects/${projectId}/members/${userId}`,
     {
@@ -208,8 +243,7 @@ export async function deleteProjectMember(
     },
   );
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "deleteProjectMember failed");

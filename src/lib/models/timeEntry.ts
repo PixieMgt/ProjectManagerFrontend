@@ -7,9 +7,9 @@ export interface TimeEntry {
   project: Project;
   task: Task;
   user: User;
-  comment: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  durationMinutes: number;
+  comment?: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  durationMinutes?: number;
 }

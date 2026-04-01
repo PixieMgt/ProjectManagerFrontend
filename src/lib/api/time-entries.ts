@@ -1,27 +1,38 @@
+import { TimeEntry } from "../models/timeEntry";
+import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getUserTimeEntries(userId: number, token: string) {
-  if (!userId || !token) return;
+  const result = {
+    timeEntries: null,
+  };
+
+  if (!userId || !token) return result;
+
   const res = await fetch(`${API_URL}/users/${userId}/time-entries`, {
     method: "GET",
     credentials: "include",
     headers: { Authorization: token },
   });
 
-  if (res.status === 404) return;
-
+  if (res.status === 404) return result;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "getUserTimeEntries failed");
   }
 
   const json = await res.json();
-
-  return json.timeEntries;
+  return {
+    timeEntries: json.timeEntries
+      ? json.timeEntries.map((te: TimeEntry) => normalizeTimeEntry(te))
+      : null,
+  };
 }
 
 export async function createTimeEntry(data: any, token: string) {
-  if (!data || !token) return;
+  if (!data || !token) return null;
+
   const res = await fetch(`${API_URL}/time-entries`, {
     method: "POST",
     credentials: "include",
@@ -48,7 +59,8 @@ export async function updateTimeEntry(
   data: any,
   token: string,
 ) {
-  if (!timeEntryId || !data || !token) return;
+  if (!timeEntryId || !data || !token) return null;
+
   const res = await fetch(`${API_URL}/time-entries/${timeEntryId}`, {
     method: "PATCH",
     credentials: "include",
@@ -62,6 +74,7 @@ export async function updateTimeEntry(
     }),
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "updateTimeEntry failed");
@@ -71,7 +84,8 @@ export async function updateTimeEntry(
 }
 
 export async function deleteTimeEntry(timeEntryId: number, token: string) {
-  if (!timeEntryId || !token) return;
+  if (!timeEntryId || !token) return null;
+
   const res = await fetch(`${API_URL}/time-entries/${timeEntryId}`, {
     method: "DELETE",
     credentials: "include",
@@ -80,6 +94,7 @@ export async function deleteTimeEntry(timeEntryId: number, token: string) {
     },
   });
 
+  if (res.status === 404) return null;
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || "deleteTimeEntry failed");

@@ -1,6 +1,6 @@
 import { ProjectMember } from "../models/ProjectMember";
 
-export async function normalizeProjectMember(raw: any): Promise<ProjectMember> {
+export function normalizeProjectMember(raw: any): ProjectMember {
   return {
     id: raw.id,
     name: raw.name,
