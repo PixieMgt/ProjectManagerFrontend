@@ -4,52 +4,50 @@ import ListPage from "@/components/ui/layout/ListPage";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
-import { deleteProject } from "@/lib/api/projects";
-import { Project } from "@/lib/models/project";
+import { deleteClient } from "@/lib/api/clients";
+import { Client } from "@/lib/models/client";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 
-export default function Projects() {
+export default function Clients() {
   const router = useRouter();
   const { token } = useAuth();
-  const { projects, refreshProjects } = useData();
+  const { clients, refreshClients } = useData();
   const { openModal } = useModal();
 
   function handleClick(e: MouseEvent<HTMLLIElement>, id: number) {
     e.preventDefault();
-    router.push(`/projects/${id}`);
+    router.push(`/clients/${id}`);
   }
 
   function handleAdd(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    openModal("project", "create");
+    openModal("client", "create");
   }
 
-  function handleEdit(e: MouseEvent<HTMLDivElement>, project: Project) {
+  function handleEdit(e: MouseEvent<HTMLDivElement>, client: Client) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("project", "update", project);
+    openModal("client", "update", client);
   }
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: number) {
     e.preventDefault();
     e.stopPropagation();
-    const deletedProject = await deleteProject(id, token);
-    if (!deletedProject) return;
-    refreshProjects();
+    const deletedClient = await deleteClient(id, token);
+    if (!deletedClient) return;
+    refreshClients();
   }
 
   return (
     <ListPage
-      title="Projects"
+      title="Clients"
       fields={[
         { label: "Name", key: "name" },
-        { label: "Client", key: "client.name" },
-        { label: "Status", key: "status" },
-        { label: "Start Date", key: "startDate" },
-        { label: "Deadline", key: "deadline" },
+        { label: "E-mail", key: "email" },
+        { label: "Phone Number", key: "phone" },
       ]}
-      list={projects}
+      list={clients}
       handleClick={handleClick}
       handleAdd={handleAdd}
       handleEdit={handleEdit}

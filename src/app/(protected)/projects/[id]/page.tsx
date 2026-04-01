@@ -38,7 +38,7 @@ export default function ProjectPage() {
       {project && (
         <DetailsPage title={project?.name}>
           <DetailsPageSection
-            title={"Project Details"}
+            title="Project Details"
             handleEdit={() => openModal("project", "update", project)}
           >
             <DetailsField label="Name" value={project?.name} />
@@ -49,7 +49,7 @@ export default function ProjectPage() {
             <DetailsField label="Deadline" value={project?.deadline} />
           </DetailsPageSection>
           <DetailsPageSection
-            title={"Client Details"}
+            title="Client Details"
             handleEdit={() => openModal("client", "update", project?.client)}
           >
             <DetailsField label="Name" value={project?.client?.name} />
@@ -58,7 +58,7 @@ export default function ProjectPage() {
             <DetailsField label="Notes" value={project?.client?.notes} />
           </DetailsPageSection>
           <DetailsPageSectionList
-            title={"Members"}
+            title="Members"
             fields={["name", "role"]}
             list={members}
             handleAdd={() => openModal("projectMember", "create", { project })}
@@ -67,7 +67,7 @@ export default function ProjectPage() {
             }
           />
           <DetailsPageSectionList
-            title={"Tasks"}
+            title="Tasks"
             fields={["title", "status"]}
             list={tasks}
             handleAdd={() => openModal("task", "create", { project })}

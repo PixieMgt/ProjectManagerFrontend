@@ -1,7 +1,40 @@
 import { Client } from "../models/client";
+import { Project } from "../models/project";
 import { normalizeClient } from "../normalizers/normalizeClient";
+import { normalizeProject } from "../normalizers/normalizeProject";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export async function getClient(clientId: number, token: string) {
+  const result = {
+    client: null,
+    projects: null,
+  };
+
+  if (!clientId || !token) return result;
+
+  const res = await fetch(`${API_URL}/clients/${clientId}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (res.status === 404) return result;
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(message || "getClient failed");
+  }
+
+  const json = await res.json();
+  return {
+    client: json.client ? normalizeClient(json.client) : null,
+    projects: json.projects
+      ? json.projects.map((p: Project) => normalizeProject(p))
+      : null,
+  };
+}
 
 export async function getUserClients(userId: number, token: string) {
   const result = {
