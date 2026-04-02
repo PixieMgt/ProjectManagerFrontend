@@ -11,6 +11,6 @@ export function normalizeTask(raw: any): Task {
     description: raw.description,
     status: raw.status,
     priority: raw.priority,
-    estimatedHours: raw.estimatedHours,
+    estimatedHours: raw.estimatedHours || raw.estimated_hours,
   };
 }

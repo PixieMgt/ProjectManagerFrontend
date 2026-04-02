@@ -3,6 +3,33 @@ import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export async function getTimeEntry(timeEntryId: number, token: string) {
+  const result = {
+    timeEntry: null,
+  };
+
+  if (!timeEntryId || !token) return result;
+
+  const res = await fetch(`${API_URL}/time-entries/${timeEntryId}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (res.status === 404) return result;
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(message || "getTimeEntry failed");
+  }
+
+  const json = await res.json();
+  return {
+    timeEntry: json.timeEntry ? normalizeTimeEntry(json.timeEntry) : null,
+  };
+}
+
 export async function getUserTimeEntries(userId: number, token: string) {
   const result = {
     timeEntries: null,
