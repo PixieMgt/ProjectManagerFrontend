@@ -1,8 +1,41 @@
 import { Task } from "../models/task";
+import { TimeEntry } from "../models/timeEntry";
 import { normalizeProject } from "../normalizers/normalizeProject";
 import { normalizeTask } from "../normalizers/normalizeTask";
+import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export async function getTask(taskId: number, token: string) {
+  const result = {
+    task: null,
+    timeEntries: null,
+  };
+
+  if (!taskId || !token) return result;
+  const res = await fetch(`${API_URL}/tasks/${taskId}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (res.status === 404) return result;
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(message || "getTask failed");
+  }
+
+  const json = await res.json();
+  console.log(json);
+  return {
+    task: json.task ? normalizeTask(json.task) : null,
+    timeEntries: json.timeEntries
+      ? json.timeEntries.map((te: TimeEntry) => normalizeTimeEntry(te))
+      : null,
+  };
+}
 
 export async function getUserTasks(userId: number, token: string) {
   const result = {
