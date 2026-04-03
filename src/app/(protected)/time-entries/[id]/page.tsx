@@ -1,6 +1,6 @@
 "use client";
 
-import DetailsField from "@/components/ui/layout/DetailsField";
+import DetailsField from "@/components/ui/display/DetailsField";
 import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,8 +22,8 @@ export default function TimeEntryPage() {
   }, []);
 
   async function getData() {
-    const { timeEntry } = await getTimeEntry(id, token);
-    setTimeEntry(timeEntry);
+    const data = await getTimeEntry(id, token);
+    data?.timeEntry && setTimeEntry(data?.timeEntry);
   }
 
   return (

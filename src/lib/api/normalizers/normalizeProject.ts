@@ -1,5 +1,5 @@
-import { Project } from "../api/models/project";
-import { ProjectMember } from "../api/models/ProjectMember";
+import { Project } from "../models/project";
+import { ProjectMember } from "../models/ProjectMember";
 import { normalizeClient } from "./normalizeClient";
 import normalizeDate from "./normalizeDate";
 import { normalizeProjectMember } from "./normalizeProjectMember";

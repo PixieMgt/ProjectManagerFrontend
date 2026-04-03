@@ -7,7 +7,10 @@ import { normalizeTask } from "../normalizers/normalizeTask";
 import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 import { normalizeProject } from "../normalizers/normalizeProject";
 
-export async function getTask(taskId: number, token: string) {
+export async function getTask(
+  taskId: number,
+  token: string,
+): Promise<FullTaskResponse | undefined> {
   return await fetchAPI<FullTaskResponse>(
     `/tasks/${taskId}`,
     "GET",
@@ -21,7 +24,10 @@ export async function getTask(taskId: number, token: string) {
   );
 }
 
-export async function getUserTasks(userId: number, token: string) {
+export async function getUserTasks(
+  userId: number,
+  token: string,
+): Promise<TaskListResponse | undefined> {
   return await fetchAPI<TaskListResponse>(
     `/users/${userId}/tasks`,
     "GET",
@@ -54,7 +60,10 @@ export async function deleteTask(taskId: number, token: string) {
   return await fetchAPI(`/tasks/${taskId}`, "DELETE", token);
 }
 
-export async function getTaskProject(taskId: number, token: string) {
+export async function getTaskProject(
+  taskId: number,
+  token: string,
+): Promise<LiteProjectResponse | undefined> {
   return await fetchAPI<LiteProjectResponse>(
     `/tasks/${taskId}/project`,
     "GET",

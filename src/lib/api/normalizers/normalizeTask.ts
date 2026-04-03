@@ -1,4 +1,4 @@
-import { Task } from "../api/models/task";
+import { Task } from "../models/task";
 import { normalizeProject } from "./normalizeProject";
 import { normalizeUser } from "./normalizeUser";
 

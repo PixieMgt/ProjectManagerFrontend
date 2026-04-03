@@ -10,7 +10,7 @@ import { ProjectMember } from "@/lib/api/models/ProjectMember";
 import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
-import DetailsField from "@/components/ui/layout/DetailsField";
+import DetailsField from "@/components/ui/display/DetailsField";
 import { useModal } from "@/hooks/useModal";
 
 export default function ProjectPage() {
@@ -27,10 +27,10 @@ export default function ProjectPage() {
   }, []);
 
   async function getData() {
-    const { project, members, tasks } = await getProject(id, token);
-    setProject(project);
-    setMembers(members);
-    setTasks(tasks);
+    const data = await getProject(id, token);
+    data?.project && setProject(data?.project);
+    data?.members && setMembers(data?.members);
+    data?.tasks && setTasks(data?.tasks);
   }
 
   return (

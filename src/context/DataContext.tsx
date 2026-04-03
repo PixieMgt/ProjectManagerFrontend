@@ -48,38 +48,38 @@ export function DataProvider({
     const data = await getUser(user.id, token);
     if (!data) return;
 
-    setClients(data?.clients);
-    setProjects(data?.projects);
-    setTasks(data?.tasks);
-    setTimeEntries(data?.timeEntries);
+    data?.clients && setClients(data?.clients);
+    data?.projects && setProjects(data?.projects);
+    data?.tasks && setTasks(data?.tasks);
+    data?.timeEntries && setTimeEntries(data?.timeEntries);
   }
 
   async function refreshProjects() {
     if (!user || !token) return;
 
-    const { projects } = await getUserProjects(user.id, token);
-    setProjects(projects);
+    const data = await getUserProjects(user.id, token);
+    data?.projects && setProjects(data.projects);
   }
 
   async function refreshClients() {
     if (!user || !token) return;
 
-    const { clients } = await getUserClients(user.id, token);
-    setClients(clients);
+    const data = await getUserClients(user.id, token);
+    data?.clients && setClients(data.clients);
   }
 
   async function refreshTasks() {
     if (!user || !token) return;
 
-    const { tasks } = await getUserTasks(user.id, token);
-    setTasks(tasks);
+    const data = await getUserTasks(user.id, token);
+    data?.tasks && setTasks(data.tasks);
   }
 
   async function refreshTimeEntries() {
     if (!user || !token) return;
 
-    const { timeEntries } = await getUserTimeEntries(user.id, token);
-    setTimeEntries(timeEntries);
+    const data = await getUserTimeEntries(user.id, token);
+    data?.timeEntries && setTimeEntries(data.timeEntries);
   }
 
   return (

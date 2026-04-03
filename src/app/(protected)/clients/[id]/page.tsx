@@ -1,6 +1,6 @@
 "use client";
 
-import DetailsField from "@/components/ui/layout/DetailsField";
+import DetailsField from "@/components/ui/display/DetailsField";
 import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
@@ -25,9 +25,9 @@ export default function ClientPage() {
   }, []);
 
   async function getData() {
-    const { client, projects } = await getClient(id, token);
-    setClient(client);
-    setProjects(projects);
+    const data = await getClient(id, token);
+    data?.client && setClient(data?.client);
+    data?.projects && setProjects(data?.projects);
   }
 
   return (

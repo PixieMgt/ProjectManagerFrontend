@@ -24,7 +24,8 @@ export function AuthProvider({
 
   async function saveUser() {
     try {
-      const { user, token } = await getCurrentUser();
+      const data = await getCurrentUser();
+      if (!data?.user || !data?.token) return;
       setUser(user);
       setToken(token);
     } catch (e) {

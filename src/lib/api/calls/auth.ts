@@ -10,7 +10,7 @@ export async function registerUser({
   name: string;
   email: string;
   password: string;
-}) {
+}): Promise<LiteUserResponse | undefined> {
   return await fetchAPI<LiteUserResponse>(
     `/auth/register`,
     "POST",
@@ -26,7 +26,7 @@ export async function loginUser({
 }: {
   email: string;
   password: string;
-}) {
+}): Promise<AuthResponse | undefined> {
   return await fetchAPI<AuthResponse>(
     `/auth/login`,
     "POST",
@@ -40,6 +40,6 @@ export async function logoutUser() {
   return await fetchAPI(`/auth/logout`, "POST");
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<AuthResponse | undefined> {
   return await fetchAPI<AuthResponse>(`/auth/me`, "GET");
 }

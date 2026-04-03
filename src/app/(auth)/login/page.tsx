@@ -25,8 +25,8 @@ export default function Login() {
     setRedirect("");
 
     try {
-      const token = await loginUser({ email, password });
-      setToken(token);
+      const data = await loginUser({ email, password });
+      data?.token && setToken(data.token);
       setRedirect("/dashboard");
     } catch (e: any) {
       setError(parseDatabaseError(e));

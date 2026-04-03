@@ -6,7 +6,10 @@ import {
 import fetchAPI from "../../utils/fetchAPI";
 import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 
-export async function getTimeEntry(timeEntryId: number, token: string) {
+export async function getTimeEntry(
+  timeEntryId: number,
+  token: string,
+): Promise<TimeEntryResponse | undefined> {
   return await fetchAPI<TimeEntryResponse>(
     `/time-entries/${timeEntryId}`,
     "GET",
@@ -17,7 +20,10 @@ export async function getTimeEntry(timeEntryId: number, token: string) {
   );
 }
 
-export async function getUserTimeEntries(userId: number, token: string) {
+export async function getUserTimeEntries(
+  userId: number,
+  token: string,
+): Promise<TimeEntryListResponse | undefined> {
   return await fetchAPI<TimeEntryListResponse>(
     `/users/${userId}/time-entries`,
     "GET",

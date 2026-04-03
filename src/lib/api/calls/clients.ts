@@ -8,7 +8,10 @@ import fetchAPI from "../../utils/fetchAPI";
 import { normalizeClient } from "../normalizers/normalizeClient";
 import { normalizeProject } from "../normalizers/normalizeProject";
 
-export async function getClient(clientId: number, token: string) {
+export async function getClient(
+  clientId: number,
+  token: string,
+): Promise<FullClientResponse | undefined> {
   return await fetchAPI<FullClientResponse>(
     `/clients/${clientId}`,
     "GET",
@@ -22,7 +25,10 @@ export async function getClient(clientId: number, token: string) {
   );
 }
 
-export async function getUserClients(userId: number, token: string) {
+export async function getUserClients(
+  userId: number,
+  token: string,
+): Promise<ClientListResponse | undefined> {
   return await fetchAPI<ClientListResponse>(
     `/users/${userId}/clients`,
     "GET",

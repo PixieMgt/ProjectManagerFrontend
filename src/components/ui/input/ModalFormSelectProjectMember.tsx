@@ -22,11 +22,14 @@ export default function ModalFormSelectProjectMember({
   );
 
   useEffect(() => {
-    if (projectId < 0) return;
-    getProjectMembers(projectId, token).then((data) =>
-      setProjectMembers(data?.members),
-    );
+    if (!projectId) return;
+    getData();
   }, [projectId]);
+
+  async function getData() {
+    const data = await getProjectMembers(projectId, token);
+    data?.members && setProjectMembers(data?.members);
+  }
 
   return (
     <div className="flex border-1 m-2 p-2 rounded-lg">

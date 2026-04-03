@@ -1,4 +1,4 @@
-import { ProjectMember } from "../api/models/ProjectMember";
+import { ProjectMember } from "../models/ProjectMember";
 
 export function normalizeProjectMember(raw: any): ProjectMember {
   return {

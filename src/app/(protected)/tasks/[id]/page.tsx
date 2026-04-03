@@ -1,6 +1,6 @@
 "use client";
 
-import DetailsField from "@/components/ui/layout/DetailsField";
+import DetailsField from "@/components/ui/display/DetailsField";
 import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
@@ -27,9 +27,9 @@ export default function TaskPage() {
   }, []);
 
   async function getData() {
-    const { task, timeEntries } = await getTask(id, token);
-    setTask(task);
-    setTimeEntries(timeEntries);
+    const data = await getTask(id, token);
+    data?.task && setTask(data?.task);
+    data?.timeEntries && setTimeEntries(data?.timeEntries);
   }
 
   return (

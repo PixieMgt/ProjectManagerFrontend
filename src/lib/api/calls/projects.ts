@@ -11,7 +11,10 @@ import { normalizeProject } from "../normalizers/normalizeProject";
 import { normalizeProjectMember } from "../normalizers/normalizeProjectMember";
 import { normalizeTask } from "../normalizers/normalizeTask";
 
-export async function getProject(projectId: number, token: string) {
+export async function getProject(
+  projectId: number,
+  token: string,
+): Promise<FullProjectResponse | undefined> {
   return await fetchAPI<FullProjectResponse>(
     `/projects/${projectId}`,
     "GET",
@@ -26,7 +29,10 @@ export async function getProject(projectId: number, token: string) {
   );
 }
 
-export async function getUserProjects(userId: number, token: string) {
+export async function getUserProjects(
+  userId: number,
+  token: string,
+): Promise<ProjectListResponse | undefined> {
   return await fetchAPI<ProjectListResponse>(
     `/users/${userId}/projects`,
     "GET",
@@ -62,7 +68,10 @@ export async function deleteProject(projectId: number, token: string) {
   return await fetchAPI(`/projects/${projectId}`, "DELETE", token);
 }
 
-export async function getProjectMembers(projectId: number, token: string) {
+export async function getProjectMembers(
+  projectId: number,
+  token: string,
+): Promise<ProjectMembersResponse | undefined> {
   return await fetchAPI<ProjectMembersResponse>(
     `/projects/${projectId}/members`,
     "GET",

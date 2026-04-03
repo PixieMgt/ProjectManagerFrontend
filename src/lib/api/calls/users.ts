@@ -10,7 +10,10 @@ import { normalizeProject } from "../normalizers/normalizeProject";
 import { normalizeTask } from "../normalizers/normalizeTask";
 import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 
-export async function getUser(userId: number, token: string) {
+export async function getUser(
+  userId: number,
+  token: string,
+): Promise<FullUserResponse | undefined> {
   return await fetchAPI<FullUserResponse>(
     `/users/${userId}`,
     "GET",
@@ -31,7 +34,10 @@ export async function getUser(userId: number, token: string) {
   );
 }
 
-export async function searchUserByEmail(email: string, token: string) {
+export async function searchUserByEmail(
+  email: string,
+  token: string,
+): Promise<LiteUserResponse | undefined> {
   return await fetchAPI<LiteUserResponse>(
     `/users/search?email=${email}`,
     "GET",
@@ -42,7 +48,10 @@ export async function searchUserByEmail(email: string, token: string) {
   );
 }
 
-export async function searchUserById(id: number, token: string) {
+export async function searchUserById(
+  id: number,
+  token: string,
+): Promise<LiteUserResponse | undefined> {
   return await fetchAPI<LiteUserResponse>(
     `/users/search?id=${id}`,
     "GET",

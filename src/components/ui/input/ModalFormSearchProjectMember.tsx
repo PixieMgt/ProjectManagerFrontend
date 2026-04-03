@@ -23,10 +23,10 @@ export default function ModalFormSearchProjectMember({
   const [searchResult, setSearchResult] = useState<User | null>(null);
 
   async function submitSearchUser() {
-    const { user } = await searchUserByEmail(searchValue, token);
-    if (!user) return;
-    setSearchResult(user);
-    setResult(user?.id);
+    const data = await searchUserByEmail(searchValue, token);
+    if (!data?.user) return;
+    setSearchResult(data?.user);
+    setResult(data?.user?.id);
   }
 
   return (
