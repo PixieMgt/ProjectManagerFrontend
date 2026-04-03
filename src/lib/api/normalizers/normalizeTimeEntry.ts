@@ -1,4 +1,4 @@
-import { TimeEntry } from "../models/timeEntry";
+import { TimeEntry } from "../api/models/timeEntry";
 import normalizeDate from "./normalizeDate";
 import { normalizeProject } from "./normalizeProject";
 import { normalizeTask } from "./normalizeTask";

@@ -5,7 +5,7 @@ import TaskForm from "./TaskForm";
 import { useData } from "@/hooks/useData";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
-import { createTask, deleteTask, updateTask } from "@/lib/api/tasks";
+import { createTask, deleteTask, updateTask } from "@/lib/api/calls/tasks";
 
 export default function TaskModal({
   mode,

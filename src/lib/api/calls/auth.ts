@@ -1,6 +1,6 @@
 import { AuthResponse } from "../responses/AuthResponses";
 import { LiteUserResponse } from "../responses/UserResponses";
-import fetchAPI from "../utils/fetchAPI";
+import fetchAPI from "../../utils/fetchAPI";
 
 export async function registerUser({
   name,

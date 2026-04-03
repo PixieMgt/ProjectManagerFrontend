@@ -5,7 +5,7 @@ import {
   createProjectMember,
   deleteProjectMember,
   updateProjectMember,
-} from "@/lib/api/projects";
+} from "@/lib/api/calls/projects";
 import SectionModalCommon from "../SectionModalCommon";
 import ProjectMemberReadView from "./ProjectMemberReadView";
 import ProjectMemberForm from "./ProjectMemberForm";

@@ -1,12 +1,12 @@
 import { Client } from "../models/client";
 import { Project } from "../models/project";
-import { normalizeClient } from "../normalizers/normalizeClient";
-import { normalizeProject } from "../normalizers/normalizeProject";
 import {
   ClientListResponse,
   FullClientResponse,
 } from "../responses/ClientResponses";
-import fetchAPI from "../utils/fetchAPI";
+import fetchAPI from "../../utils/fetchAPI";
+import { normalizeClient } from "../normalizers/normalizeClient";
+import { normalizeProject } from "../normalizers/normalizeProject";
 
 export async function getClient(clientId: number, token: string) {
   return await fetchAPI<FullClientResponse>(

@@ -1,6 +1,6 @@
 "use client";
 
-import { getCurrentUser } from "@/lib/api/auth";
+import { getCurrentUser } from "@/lib/api/calls/auth";
 import { createContext, useEffect, useState } from "react";
 
 type AuthContextType = {

@@ -1,15 +1,15 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { getUserClients } from "@/lib/api/clients";
-import { getProjectMembers, getUserProjects } from "@/lib/api/projects";
-import { getUserTasks } from "@/lib/api/tasks";
-import { getUserTimeEntries } from "@/lib/api/time-entries";
-import { getUser } from "@/lib/api/users";
-import { Client } from "@/lib/models/client";
-import { Project } from "@/lib/models/project";
-import { Task } from "@/lib/models/task";
-import { TimeEntry } from "@/lib/models/timeEntry";
+import { getUserClients } from "@/lib/api/calls/clients";
+import { getProjectMembers, getUserProjects } from "@/lib/api/calls/projects";
+import { getUserTasks } from "@/lib/api/calls/tasks";
+import { getUserTimeEntries } from "@/lib/api/calls/time-entries";
+import { getUser } from "@/lib/api/calls/users";
+import { Client } from "@/lib/api/models/client";
+import { Project } from "@/lib/api/models/project";
+import { Task } from "@/lib/api/models/task";
+import { TimeEntry } from "@/lib/api/models/timeEntry";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 

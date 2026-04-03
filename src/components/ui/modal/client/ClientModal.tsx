@@ -3,7 +3,11 @@ import { ModalMode } from "@/context/ModalContext";
 import ClientReadView from "./ClientReadView";
 import ClientForm from "./ClientForm";
 import { useModal } from "@/hooks/useModal";
-import { createClient, deleteClient, updateClient } from "@/lib/api/clients";
+import {
+  createClient,
+  deleteClient,
+  updateClient,
+} from "@/lib/api/calls/clients";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 

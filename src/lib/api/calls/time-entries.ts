@@ -1,10 +1,10 @@
 import { TimeEntry } from "../models/timeEntry";
-import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 import {
   TimeEntryListResponse,
   TimeEntryResponse,
 } from "../responses/TimEntryResponses";
-import fetchAPI from "../utils/fetchAPI";
+import fetchAPI from "../../utils/fetchAPI";
+import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 
 export async function getTimeEntry(timeEntryId: number, token: string) {
   return await fetchAPI<TimeEntryResponse>(

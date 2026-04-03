@@ -4,8 +4,8 @@ import ListPage from "@/components/ui/layout/ListPage";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
-import { deleteClient } from "@/lib/api/clients";
-import { Client } from "@/lib/models/client";
+import { deleteClient } from "@/lib/api/calls/clients";
+import { Client } from "@/lib/api/models/client";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 

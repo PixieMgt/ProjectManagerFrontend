@@ -6,11 +6,11 @@ import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
-import { getProject } from "@/lib/api/projects";
-import { getTask } from "@/lib/api/tasks";
-import { Client } from "@/lib/models/client";
-import { Task } from "@/lib/models/task";
-import { TimeEntry } from "@/lib/models/timeEntry";
+import { getProject } from "@/lib/api/calls/projects";
+import { getTask } from "@/lib/api/calls/tasks";
+import { Client } from "@/lib/api/models/client";
+import { Task } from "@/lib/api/models/task";
+import { TimeEntry } from "@/lib/api/models/timeEntry";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

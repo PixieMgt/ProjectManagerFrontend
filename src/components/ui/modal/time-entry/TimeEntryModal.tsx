@@ -9,7 +9,7 @@ import {
   createTimeEntry,
   deleteTimeEntry,
   updateTimeEntry,
-} from "@/lib/api/time-entries";
+} from "@/lib/api/calls/time-entries";
 
 export default function TimeEntryModal({
   mode,

@@ -2,13 +2,13 @@ import { Client } from "../models/client";
 import { Project } from "../models/project";
 import { Task } from "../models/task";
 import { TimeEntry } from "../models/timeEntry";
+import { FullUserResponse, LiteUserResponse } from "../responses/UserResponses";
+import fetchAPI from "../../utils/fetchAPI";
+import { normalizeUser } from "../normalizers/normalizeUser";
 import { normalizeClient } from "../normalizers/normalizeClient";
 import { normalizeProject } from "../normalizers/normalizeProject";
 import { normalizeTask } from "../normalizers/normalizeTask";
 import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
-import { normalizeUser } from "../normalizers/normalizeUser";
-import { FullUserResponse, LiteUserResponse } from "../responses/UserResponses";
-import fetchAPI from "../utils/fetchAPI";
 
 export async function getUser(userId: number, token: string) {
   return await fetchAPI<FullUserResponse>(

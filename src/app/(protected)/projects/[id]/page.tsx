@@ -1,12 +1,12 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { getProject } from "@/lib/api/projects";
+import { getProject } from "@/lib/api/calls/projects";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Project } from "@/lib/models/project";
-import { Task } from "@/lib/models/task";
-import { ProjectMember } from "@/lib/models/ProjectMember";
+import { Project } from "@/lib/api/models/project";
+import { Task } from "@/lib/api/models/task";
+import { ProjectMember } from "@/lib/api/models/ProjectMember";
 import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";

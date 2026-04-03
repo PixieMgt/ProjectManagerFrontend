@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { loginUser } from "@/lib/api/auth";
+import { loginUser } from "@/lib/api/calls/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

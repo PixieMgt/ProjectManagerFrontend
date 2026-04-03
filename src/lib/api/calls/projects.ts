@@ -1,15 +1,15 @@
 import { Project } from "../models/project";
 import { ProjectMember } from "../models/ProjectMember";
 import { Task } from "../models/task";
-import { normalizeProject } from "../normalizers/normalizeProject";
-import { normalizeProjectMember } from "../normalizers/normalizeProjectMember";
-import { normalizeTask } from "../normalizers/normalizeTask";
 import {
   FullProjectResponse,
   ProjectListResponse,
   ProjectMembersResponse,
 } from "../responses/ProjectResponses";
-import fetchAPI from "../utils/fetchAPI";
+import fetchAPI from "../../utils/fetchAPI";
+import { normalizeProject } from "../normalizers/normalizeProject";
+import { normalizeProjectMember } from "../normalizers/normalizeProjectMember";
+import { normalizeTask } from "../normalizers/normalizeTask";
 
 export async function getProject(projectId: number, token: string) {
   return await fetchAPI<FullProjectResponse>(

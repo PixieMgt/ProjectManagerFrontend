@@ -1,4 +1,4 @@
-import { Client } from "../models/client";
+import { Client } from "../api/models/client";
 
 export function normalizeClient(raw: any): Client {
   return {

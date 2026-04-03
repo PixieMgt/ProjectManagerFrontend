@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import SearchButton from "./SearchButton";
 import { useAuth } from "@/hooks/useAuth";
-import { searchUserByEmail } from "@/lib/api/users";
-import { User } from "@/lib/models/user";
+import { searchUserByEmail } from "@/lib/api/calls/users";
+import { User } from "@/lib/api/models/user";
 
 export default function ModalFormSearchProjectMember({
   name,

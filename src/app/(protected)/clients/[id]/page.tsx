@@ -6,9 +6,9 @@ import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
-import { getClient } from "@/lib/api/clients";
-import { Client } from "@/lib/models/client";
-import { Project } from "@/lib/models/project";
+import { getClient } from "@/lib/api/calls/clients";
+import { Client } from "@/lib/api/models/client";
+import { Project } from "@/lib/api/models/project";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

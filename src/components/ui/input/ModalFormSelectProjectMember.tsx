@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
-import { getProjectMembers } from "@/lib/api/projects";
-import { ProjectMember } from "@/lib/models/ProjectMember";
+import { getProjectMembers } from "@/lib/api/calls/projects";
+import { ProjectMember } from "@/lib/api/models/ProjectMember";
 import { ChangeEvent, useEffect, useState } from "react";
 
 export default function ModalFormSelectProjectMember({

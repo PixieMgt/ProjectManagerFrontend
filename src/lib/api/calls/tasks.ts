@@ -1,11 +1,11 @@
 import { Task } from "../models/task";
 import { TimeEntry } from "../models/timeEntry";
-import { normalizeProject } from "../normalizers/normalizeProject";
-import { normalizeTask } from "../normalizers/normalizeTask";
-import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
 import { LiteProjectResponse } from "../responses/ProjectResponses";
 import { FullTaskResponse, TaskListResponse } from "../responses/TaskResponses";
-import fetchAPI from "../utils/fetchAPI";
+import fetchAPI from "../../utils/fetchAPI";
+import { normalizeTask } from "../normalizers/normalizeTask";
+import { normalizeTimeEntry } from "../normalizers/normalizeTimeEntry";
+import { normalizeProject } from "../normalizers/normalizeProject";
 
 export async function getTask(taskId: number, token: string) {
   return await fetchAPI<FullTaskResponse>(

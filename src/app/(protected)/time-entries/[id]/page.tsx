@@ -5,8 +5,8 @@ import DetailsPage from "@/components/ui/layout/DetailsPage";
 import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
-import { getTimeEntry } from "@/lib/api/time-entries";
-import { TimeEntry } from "@/lib/models/timeEntry";
+import { getTimeEntry } from "@/lib/api/calls/time-entries";
+import { TimeEntry } from "@/lib/api/models/timeEntry";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

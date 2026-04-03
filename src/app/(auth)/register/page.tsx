@@ -1,6 +1,6 @@
 "use client";
 
-import { registerUser } from "@/lib/api/auth";
+import { registerUser } from "@/lib/api/calls/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

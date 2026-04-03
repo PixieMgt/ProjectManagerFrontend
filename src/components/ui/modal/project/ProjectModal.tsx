@@ -7,7 +7,7 @@ import {
   createProject,
   deleteProject,
   updateProject,
-} from "@/lib/api/projects";
+} from "@/lib/api/calls/projects";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 

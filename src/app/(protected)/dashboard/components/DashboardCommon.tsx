@@ -1,6 +1,6 @@
 import PageHeader from "@/components/ui/layout/PageHeader";
 import { useAuth } from "@/hooks/useAuth";
-import { logoutUser } from "@/lib/api/auth";
+import { logoutUser } from "@/lib/api/calls/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
