@@ -1,9 +1,11 @@
 import { SubmitEvent } from "react";
 
 export default function ModalFormContainer({
+  errorMessage,
   onSubmit,
   children,
 }: Readonly<{
+  errorMessage: string;
   onSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
 }>) {
@@ -16,6 +18,12 @@ export default function ModalFormContainer({
       >
         {children}
       </form>
+      <p
+        className="text-center text-red-500"
+        style={{ whiteSpace: "pre-wrap" }}
+      >
+        {errorMessage}
+      </p>
       <button
         type="submit"
         form="modal-form"

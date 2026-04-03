@@ -24,7 +24,6 @@ export default function TimeEntryPage() {
   async function getData() {
     const { timeEntry } = await getTimeEntry(id, token);
     setTimeEntry(timeEntry);
-    console.log(timeEntry);
   }
 
   return (

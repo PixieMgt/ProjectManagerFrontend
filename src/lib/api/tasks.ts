@@ -28,7 +28,6 @@ export async function getTask(taskId: number, token: string) {
   }
 
   const json = await res.json();
-  console.log(json);
   return {
     task: json.task ? normalizeTask(json.task) : null,
     timeEntries: json.timeEntries

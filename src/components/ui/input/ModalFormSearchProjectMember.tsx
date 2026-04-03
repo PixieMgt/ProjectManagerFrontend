@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import SearchButton from "./SearchButton";
 import { useAuth } from "@/hooks/useAuth";
 import { searchUserByEmail } from "@/lib/api/users";
-import { ProjectMember } from "@/lib/models/ProjectMember";
+import { User } from "@/lib/models/user";
 
 export default function ModalFormSearchProjectMember({
   name,
@@ -15,15 +15,18 @@ export default function ModalFormSearchProjectMember({
   name: string;
   label: string;
   searchValue: string;
-  result: any;
-  setResult: React.Dispatch<React.SetStateAction<ProjectMember>>;
+  result: number;
+  setResult: (result: number) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   const { token } = useAuth();
+  const [searchResult, setSearchResult] = useState<User | null>(null);
 
   async function submitSearchUser() {
-    const user = await searchUserByEmail(searchValue, token);
-    setResult(user);
+    const { user } = await searchUserByEmail(searchValue, token);
+    if (!user) return;
+    setSearchResult(user);
+    setResult(user?.id);
   }
 
   return (
@@ -44,7 +47,7 @@ export default function ModalFormSearchProjectMember({
       </div>
       <div className="flex mt-4">
         <p className="w-[25%]">Result</p>
-        <p className="w-[75%] border-b-1">{result?.name}</p>
+        <p className="w-[75%] border-b-1">{searchResult?.name}</p>
       </div>
     </div>
   );

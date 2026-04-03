@@ -15,12 +15,13 @@ export default function ProjectForm({
   const [form, setForm] = useState({
     name: defaultValues?.name || "",
     description: defaultValues?.description || "",
-    client: defaultValues?.client || {},
+    clientId: defaultValues?.client?.id || -1,
     status: defaultValues?.status || "planning",
     hourlyRate: defaultValues?.hourlyRate || 0,
-    startDate: defaultValues?.startDate || "",
-    deadline: defaultValues?.deadline || "",
+    startDate: defaultValues?.startDate || undefined,
+    deadline: defaultValues?.deadline || undefined,
   });
+  const [error, setError] = useState<string>("");
 
   function handleChange(e: ChangeEvent<any>) {
     setForm({
@@ -31,11 +32,37 @@ export default function ProjectForm({
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    const error = validateInputs();
+    if (error) {
+      setError(error);
+      return;
+    }
     onSubmit(form);
   }
 
+  function validateInputs() {
+    let err = "";
+
+    const clientId = form?.clientId;
+    const name = form?.name?.trim();
+    const description = form?.description?.trim();
+    const hourlyRate = form?.hourlyRate;
+    const startDate = new Date(form?.startDate).getTime();
+    const deadline = new Date(form?.deadline).getTime();
+
+    if (clientId < 0) err += "\nPlease select a client";
+    if (name.length === 0) err += "\nName can't be empty";
+    if (name.length > 128) err += "\nName is too long";
+    if (description.length > 500) err += "\nDescription can't be empty";
+    if (hourlyRate < 0) err += "\nHourly rate can't be negative";
+    if (hourlyRate > 10000) err += "\nHourly rate is too high";
+    if (startDate >= deadline) err += "\nDeadline must be after start date";
+
+    return err.length > 0 ? err : null;
+  }
+
   return (
-    <ModalFormContainer onSubmit={handleSubmit}>
+    <ModalFormContainer errorMessage={error} onSubmit={handleSubmit}>
       <ModalFormInput
         name="name"
         type="text"
@@ -58,7 +85,7 @@ export default function ProjectForm({
         <ModalFormSelectClient
           name="clientId"
           label="Client"
-          value={form.client.id}
+          value={form.clientId}
           onChange={handleChange}
         />
       )}

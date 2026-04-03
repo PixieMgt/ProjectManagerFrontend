@@ -25,10 +25,9 @@ export default function ProjectMemberModal({
 
   async function submitCreateProjectMember(form: any) {
     const projectMember = await createProjectMember(
-      data.projectId,
+      data.project.id,
       {
-        projectId: data.projectId,
-        userId: Number(form.user?.id),
+        userId: Number(form.userId),
         role: form.role,
       },
       token,
@@ -39,9 +38,9 @@ export default function ProjectMemberModal({
 
   async function submitUpdateProjectMember(form: any) {
     const projectMember = await updateProjectMember(
-      data.projectId,
+      data.project.id,
       form.userId,
-      data,
+      form,
       token,
     );
     if (!projectMember) return;
@@ -50,8 +49,8 @@ export default function ProjectMemberModal({
 
   async function handleDelete() {
     const projectMember = await deleteProjectMember(
-      data.projectId,
-      data.userId,
+      data.project.id,
+      data.id,
       token,
     );
     if (!projectMember) return;

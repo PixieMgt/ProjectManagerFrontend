@@ -17,14 +17,15 @@ export default function TaskForm({
   const { user } = useAuth();
 
   const [form, setForm] = useState({
+    projectId: defaultValues?.project?.id || -1,
     ownerUserId: defaultValues?.owner?.id || user.id,
     title: defaultValues?.title || "",
     description: defaultValues?.description || "",
-    projectId: defaultValues?.project?.id || -1,
     status: defaultValues?.status || "todo",
     priority: defaultValues?.priority || "medium",
     estimatedHours: defaultValues?.estimatedHours || 0,
   });
+  const [error, setError] = useState<string>("");
 
   function handleChange(e: ChangeEvent<any>) {
     setForm({
@@ -35,11 +36,37 @@ export default function TaskForm({
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    const error = validateInputs();
+    if (error) {
+      setError(error);
+      return;
+    }
     onSubmit(form);
   }
 
+  function validateInputs() {
+    let err = "";
+
+    const projectId = form?.projectId;
+    const userId = form?.ownerUserId;
+    const title = form?.title?.trim();
+    const description = form?.description?.trim();
+    const status = form?.status;
+    const priority = form?.priority;
+    const estimatedHours = form?.estimatedHours;
+
+    if (projectId < 0) err += "\nPlease select a project";
+    if (title.length === 0) err += "\nTitle can't be empty";
+    if (title.length > 128) err += "\nTitle is too long";
+    if (description.length > 500) err += "\nDescription is too long";
+    if (estimatedHours < 0) err += "\nEstimated hours can't be negative";
+    if (estimatedHours > 10000) err += "\nEstimated hours is too high";
+
+    return err.length > 0 ? err : null;
+  }
+
   return (
-    <ModalFormContainer onSubmit={handleSubmit}>
+    <ModalFormContainer errorMessage={error} onSubmit={handleSubmit}>
       <ModalFormInput
         name="title"
         type="text"
