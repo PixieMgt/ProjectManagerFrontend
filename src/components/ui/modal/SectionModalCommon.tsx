@@ -20,7 +20,10 @@ export default function SectionModalCommon({
 
   return (
     <>
-      <div className="fixed h-screen w-screen left-0 top-0 bg-black opacity-[80%]" />
+      <div
+        className="fixed h-screen w-screen left-0 top-0 bg-black opacity-[80%]"
+        onClick={() => closeModal()}
+      />
       <div className="fixed flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] h-[75%] bg-white text-black rounded-xl">
         <div className="flex p-8 justify-between">
           <div className="flex items-center">

@@ -1,5 +1,5 @@
 import ModalReadField from "../../display/ModalReadField";
-import ModalReadContainer from "../../layout/ModalReadContainer";
+import ModalReadContainer from "../ModalReadContainer";
 
 export default function ProjectMemberReadView({ member }: { member: any }) {
   return (

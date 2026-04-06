@@ -24,13 +24,15 @@ export default function ModalFormContainer({
       >
         {errorMessage}
       </p>
-      <button
-        type="submit"
-        form="modal-form"
-        className="hover:cursor-pointer mt-auto mb-8 underline"
-      >
-        Save
-      </button>
+      <div className="w-full">
+        <button
+          type="submit"
+          form="modal-form"
+          className="block mx-auto mt-8 mb-8 text-2xl hover:cursor-pointer"
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 }

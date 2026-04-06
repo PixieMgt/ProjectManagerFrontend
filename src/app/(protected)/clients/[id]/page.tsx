@@ -1,9 +1,9 @@
 "use client";
 
 import DetailsField from "@/components/ui/display/DetailsField";
-import DetailsPage from "@/components/ui/layout/DetailsPage";
-import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
-import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
+import DetailsPage from "@/components/ui/layout/detail/DetailsPage";
+import DetailsPageSection from "@/components/ui/layout/detail/DetailsPageSection";
+import DetailsPageSectionList from "@/components/ui/layout/detail/DetailsPageSectionList";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
 import { getClient } from "@/lib/api/calls/clients";

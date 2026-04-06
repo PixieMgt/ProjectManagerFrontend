@@ -1,6 +1,6 @@
 "use client";
 
-import ListPage from "@/components/ui/layout/ListPage";
+import ListPage from "@/components/ui/layout/list/ListPage";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";

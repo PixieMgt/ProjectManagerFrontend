@@ -1,4 +1,4 @@
-import AddButton from "./input/AddButton";
+import AddButton from "../../input/AddButton";
 
 export default function SectionContainer({
   title,
@@ -10,9 +10,9 @@ export default function SectionContainer({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full rounded-xl border-white border-2 p-4 my-4 text-start">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl">{title}</h1>
+    <div className="w-full rounded-xl border-white border-2 p-8 my-8 text-start">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl">{title}</h1>
         <AddButton onClick={onAdd} color="white" className="h-8 w-8" />
       </div>
       {children}

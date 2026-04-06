@@ -1,8 +1,8 @@
 "use client";
 
 import DetailsField from "@/components/ui/display/DetailsField";
-import DetailsPage from "@/components/ui/layout/DetailsPage";
-import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
+import DetailsPage from "@/components/ui/layout/detail/DetailsPage";
+import DetailsPageSection from "@/components/ui/layout/detail/DetailsPageSection";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
 import { getTimeEntry } from "@/lib/api/calls/time-entries";

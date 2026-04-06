@@ -1,5 +1,5 @@
 import React, { MouseEvent, useEffect, useState } from "react";
-import EditButton from "../input/EditButton";
+import EditButton from "../../input/EditButton";
 
 export default function DetailsPageSection({
   title,

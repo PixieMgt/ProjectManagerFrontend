@@ -1,4 +1,4 @@
-import ModalReadContainer from "@/components/ui/layout/ModalReadContainer";
+import ModalReadContainer from "@/components/ui/modal/ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
 
 export default function ProjectReadView({ project }: { project: any }) {

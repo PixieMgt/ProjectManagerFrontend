@@ -1,4 +1,4 @@
-import ModalReadContainer from "../../layout/ModalReadContainer";
+import ModalReadContainer from "../ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
 
 export default function TimeEntryReadView({ timeEntry }: { timeEntry: any }) {

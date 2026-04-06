@@ -1,6 +1,6 @@
 "use client";
 
-import ListPage from "@/components/ui/layout/ListPage";
+import ListPage from "@/components/ui/layout/list/ListPage";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
@@ -45,6 +45,8 @@ export default function Tasks() {
       fields={[
         { label: "Title", key: "title" },
         { label: "Status", key: "status" },
+        { label: "Priority", key: "priority" },
+        { label: "Estimated Hours", key: "estimatedHours" },
       ]}
       list={tasks}
       handleClick={handleClick}

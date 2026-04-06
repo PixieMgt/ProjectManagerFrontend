@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { Project } from "@/lib/api/models/project";
 import { Task } from "@/lib/api/models/task";
 import { ProjectMember } from "@/lib/api/models/ProjectMember";
-import DetailsPage from "@/components/ui/layout/DetailsPage";
-import DetailsPageSection from "@/components/ui/layout/DetailsPageSection";
-import DetailsPageSectionList from "@/components/ui/layout/DetailsPageSectionList";
+import DetailsPage from "@/components/ui/layout/detail/DetailsPage";
+import DetailsPageSection from "@/components/ui/layout/detail/DetailsPageSection";
+import DetailsPageSectionList from "@/components/ui/layout/detail/DetailsPageSectionList";
 import DetailsField from "@/components/ui/display/DetailsField";
 import { useModal } from "@/hooks/useModal";
 

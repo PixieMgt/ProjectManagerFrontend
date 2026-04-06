@@ -1,7 +1,8 @@
 import { MouseEvent } from "react";
 import DetailsPageSectionListItem from "./DetailsPageSectionListItem";
-import AddButton from "../input/AddButton";
+import AddButton from "../../input/AddButton";
 import { useModal } from "@/hooks/useModal";
+import getFieldValue from "@/lib/utils/getFieldValue";
 
 export default function DetailsPageSectionList({
   title,
@@ -16,10 +17,6 @@ export default function DetailsPageSectionList({
   handleAdd: (e: MouseEvent<HTMLDivElement>) => void;
   handleClick: (data: any) => void;
 }) {
-  function getValue(obj: any, path: string) {
-    return path.split(".").reduce((acc, part) => acc?.[part], obj);
-  }
-
   return (
     <div className="p-8 border-2 rounded-xl mt-8">
       <div className="flex justify-between">
@@ -31,7 +28,7 @@ export default function DetailsPageSectionList({
           list.map((li) => (
             <DetailsPageSectionListItem
               key={li.id}
-              fields={fields.map((f) => getValue(li, f))}
+              fields={fields.map((f) => getFieldValue(li, f))}
               handleClick={() => handleClick(li)}
             />
           ))

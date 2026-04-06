@@ -1,6 +1,6 @@
 import { MouseEvent } from "react";
-import EditButton from "../input/EditButton";
-import DeleteButton from "../input/DeleteButton";
+import EditButton from "../../input/EditButton";
+import DeleteButton from "../../input/DeleteButton";
 
 export default function ListPageItem({
   handleClick,

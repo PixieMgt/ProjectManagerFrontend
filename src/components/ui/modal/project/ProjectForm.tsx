@@ -2,7 +2,7 @@ import { ChangeEvent, SubmitEvent, useState } from "react";
 import ModalFormInput from "../../input/ModalFormInput";
 import ModalFormSelectClient from "../../input/ModalFormSelectClient";
 import ModalFormSelect from "../../input/ModalFormSelect";
-import ModalFormContainer from "@/components/ui/layout/ModalFormContainer";
+import ModalFormContainer from "@/components/ui/modal/ModalFormContainer";
 import ModalReadField from "../../display/ModalReadField";
 
 export default function ProjectForm({

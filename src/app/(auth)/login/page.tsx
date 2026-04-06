@@ -1,5 +1,7 @@
 "use client";
 
+import AuthInputField from "@/components/ui/input/AuthInputField";
+import AuthPage from "@/components/ui/layout/auth/AuthPage";
 import { useAuth } from "@/hooks/useAuth";
 import { loginUser } from "@/lib/api/calls/auth";
 import parseDatabaseError from "@/lib/utils/parseDatabaseError";
@@ -26,7 +28,8 @@ export default function Login() {
 
     try {
       const data = await loginUser({ email, password });
-      data?.token && setToken(data.token);
+      if (!data?.token) return;
+      setToken(data.token);
       setRedirect("/dashboard");
     } catch (e: any) {
       setError(parseDatabaseError(e));
@@ -44,46 +47,27 @@ export default function Login() {
   }, [loading, redirect, user]);
 
   return (
-    <main className="text-center">
-      <form onSubmit={handleSubmit}>
-        <h1>Log in to your account</h1>
-
-        <div>
-          <label>E-mail</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your e-mail"
-            className="ml-2"
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
-            className="ml-2"
-          />
-        </div>
-
-        {error && (
-          <p style={{ whiteSpace: "pre-wrap" }} className="text-red-500">
-            {error}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={loginLoading}
-          className="hover:cursor-pointer"
-        >
-          {loginLoading ? "Logging in..." : "Log in"}
-        </button>
-        <Link href={"/register"} className="block text-sm underline">
-          Don't have an account?
-        </Link>
-      </form>
-    </main>
+    <AuthPage
+      title="Login"
+      submitTitle="Login"
+      redirect="/register"
+      loading={loginLoading}
+      error={error}
+      onSubmit={handleSubmit}
+    >
+      <AuthInputField
+        label="E-mail"
+        placeholder="e-mail"
+        value={email}
+        setValue={setEmail}
+      />
+      <AuthInputField
+        label="Password"
+        placeholder="password"
+        value={password}
+        setValue={setPassword}
+        isPassword={true}
+      />
+    </AuthPage>
   );
 }

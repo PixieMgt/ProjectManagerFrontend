@@ -10,11 +10,13 @@ import { Client } from "@/lib/api/models/client";
 import { Project } from "@/lib/api/models/project";
 import { Task } from "@/lib/api/models/task";
 import { TimeEntry } from "@/lib/api/models/timeEntry";
+import getRootPage from "@/lib/utils/getRootPage";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 
 type DataContextType = {
-  getData: () => void;
+  currentPage: string;
   refreshClients: () => void;
   refreshProjects: () => void;
   refreshTasks: () => void;
@@ -32,11 +34,17 @@ export function DataProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
   const { user, token } = useAuth();
+  const [currentPage, setCurrentPage] = useState<string>("");
   const [clients, setClients] = useState<Array<Client>>([]);
   const [projects, setProjects] = useState<Array<Project>>([]);
   const [tasks, setTasks] = useState<Array<Task>>([]);
   const [timeEntries, setTimeEntries] = useState<Array<TimeEntry>>([]);
+
+  useEffect(() => {
+    setCurrentPage(getRootPage(pathname));
+  }, [pathname]);
 
   useEffect(() => {
     getData();
@@ -85,7 +93,7 @@ export function DataProvider({
   return (
     <DataContext.Provider
       value={{
-        getData,
+        currentPage,
         refreshClients,
         refreshProjects,
         refreshTasks,

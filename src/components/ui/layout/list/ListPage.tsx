@@ -1,7 +1,8 @@
 import { MouseEvent } from "react";
+import PageHeader from "../PageHeader";
 import ListPageHeader from "./ListPageHeader";
 import ListPageItem from "./ListPageItem";
-import PageHeader from "./PageHeader";
+import getFieldValue from "@/lib/utils/getFieldValue";
 
 export default function ListPage({
   title,
@@ -20,10 +21,6 @@ export default function ListPage({
   handleEdit: (e: MouseEvent<HTMLDivElement>, data: any) => void;
   handleDelete: (e: MouseEvent<HTMLDivElement>, id: number) => void;
 }) {
-  function getValue(obj: any, path: string) {
-    return path.split(".").reduce((acc, part) => acc?.[part], obj);
-  }
-
   return (
     <div>
       <PageHeader title={title} />
@@ -39,7 +36,7 @@ export default function ListPage({
               handleClick={(e) => handleClick(e, li.id)}
               handleEdit={(e) => handleEdit(e, li)}
               handleDelete={(e) => handleDelete(e, li.id)}
-              fields={fields.map((f) => getValue(li, f.key))}
+              fields={fields.map((f) => getFieldValue(li, f.key))}
             />
           ))
         ) : (

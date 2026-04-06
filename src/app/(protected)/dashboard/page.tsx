@@ -1,10 +1,10 @@
 "use client";
 
-import DashboardCommon from "./components/DashboardCommon";
+import DashboardAdmin from "@/components/ui/layout/dashboard/DashboardAdmin";
+import DashboardClient from "@/components/ui/layout/dashboard/DashboardClient";
+import DashboardCommon from "@/components/ui/layout/dashboard/DashboardCommon";
+import DashboardDeveloper from "@/components/ui/layout/dashboard/DashboardDeveloper";
 import { useAuth } from "@/hooks/useAuth";
-import DashboardAdmin from "./components/DashboardAdmin";
-import DashboardDeveloper from "./components/DashboardDeveloper";
-import DashboardClient from "./components/DashboardClient";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
@@ -12,12 +12,10 @@ export default function Dashboard() {
   if (loading) return null;
 
   return (
-    <main className="text-center">
-      <DashboardCommon>
-        {user?.role === "admin" && <DashboardAdmin />}
-        {user?.role === "developer" && <DashboardDeveloper />}
-        {user?.role === "client" && <DashboardClient />}
-      </DashboardCommon>
-    </main>
+    <DashboardCommon>
+      {user?.role === "admin" && <DashboardAdmin />}
+      {user?.role === "developer" && <DashboardDeveloper />}
+      {user?.role === "client" && <DashboardClient />}
+    </DashboardCommon>
   );
 }

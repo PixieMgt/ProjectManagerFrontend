@@ -1,5 +1,5 @@
 import { MouseEvent } from "react";
-import AddButton from "../input/AddButton";
+import AddButton from "../../input/AddButton";
 
 export default function ListPageHeader({
   fields,
