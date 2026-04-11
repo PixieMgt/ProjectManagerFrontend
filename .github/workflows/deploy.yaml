@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          ssh -o StrictHostKeyChecking=no projectmanager@${{ TS_VM_IP }} "
+          ssh -o StrictHostKeyChecking=no projectmanager@${{ secrets.TS_VM_IP }} "
             kubectl set image deployment/frontend frontend=ghcr.io/${{ secrets.GHCR_USERNAME }}/projectmanagerfrontend:latest -n production &&
             kubectl rollout status deployment/frontend -n production
           "
