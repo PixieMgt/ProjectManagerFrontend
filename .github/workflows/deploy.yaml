@@ -31,6 +31,10 @@ jobs:
       - name: Push Docker image
         run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/projectmanagerfrontend:latest
 
+      - name: Install Tailscale
+        run: |
+          curl -fsSL https://tailscale.com/install.sh | sh
+
       - name: Connect to server via Tailscale
         run: |
           sudo tailscale up --authkey ${{ secrets.TS_KEY }}
