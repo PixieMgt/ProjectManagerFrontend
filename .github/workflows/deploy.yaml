@@ -24,7 +24,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            --build-arg NEXT_PUBLIC_API_URL=http://backend:5000/api \
+            --build-arg NEXT_PUBLIC_API_URL=https://projectmanager.pixiemgt.com/api \
             -t ghcr.io/${{ secrets.GHCR_USERNAME }}/projectmanagerfrontend:latest \
             .
 
