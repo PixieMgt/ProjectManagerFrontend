@@ -24,7 +24,7 @@ export default function DetailsPageSectionList({
         <AddButton onClick={handleAdd} color="white" className="w-10 h-10" />
       </div>
       <div>
-        {list ? (
+        {list && list.length > 0 ? (
           list.map((li) => (
             <DetailsPageSectionListItem
               key={li.id}
@@ -33,7 +33,7 @@ export default function DetailsPageSectionList({
             />
           ))
         ) : (
-          <p>{`${title} not found`}</p>
+          <p>{`No ${title} found`}</p>
         )}
       </div>
     </div>
