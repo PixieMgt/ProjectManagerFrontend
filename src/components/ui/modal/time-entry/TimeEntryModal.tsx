@@ -10,6 +10,7 @@ import {
   deleteTimeEntry,
   updateTimeEntry,
 } from "@/lib/api/calls/time-entries";
+import TimeEntryDelete from "./TimeEntryDelete";
 
 export default function TimeEntryModal({
   mode,
@@ -24,6 +25,7 @@ export default function TimeEntryModal({
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
+  const isDelete = mode === "delete";
 
   async function submitCreateTimeEntry(form: any) {
     const timeEntry = await createTimeEntry(form, token);
@@ -39,18 +41,11 @@ export default function TimeEntryModal({
     refreshTimeEntries();
   }
 
-  async function handleDelete() {
-    const timeEntry = await deleteTimeEntry(data.id, token);
-    if (!timeEntry) return;
-    closeModal();
-    refreshTimeEntries();
-  }
-
   return (
     <SectionModalCommon
       title={isCreate ? "Add Time Entry" : data?.comment}
       setEditMode={() => openModal("timeEntry", "update", data)}
-      deleteItem={handleDelete}
+      deleteItem={() => openModal("projectMember", "delete", data)}
     >
       {isRead && <TimeEntryReadView timeEntry={data} />}
       {(isCreate || isUpdate) && (
@@ -59,6 +54,7 @@ export default function TimeEntryModal({
           onSubmit={isCreate ? submitCreateTimeEntry : submitUpdateTimeEntry}
         />
       )}
+      {isDelete && <TimeEntryDelete timeEntry={data} />}
     </SectionModalCommon>
   );
 }

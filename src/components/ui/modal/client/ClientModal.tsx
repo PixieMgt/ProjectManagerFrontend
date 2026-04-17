@@ -10,6 +10,7 @@ import {
 } from "@/lib/api/calls/clients";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
+import ClientDelete from "./ClientDelete";
 
 export default function ClientModal({
   mode,
@@ -24,6 +25,7 @@ export default function ClientModal({
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
+  const isDelete = mode === "delete";
 
   async function submitCreateClient(form: any) {
     const client = await createClient(form, token);
@@ -37,18 +39,12 @@ export default function ClientModal({
     closeModal();
     refreshClients();
   }
-  async function handleDelete() {
-    const client = await deleteClient(data.id, token);
-    if (!client) return;
-    closeModal();
-    refreshClients();
-  }
 
   return (
     <SectionModalCommon
       title={isCreate ? "Add Client" : data?.name}
       setEditMode={() => openModal("client", "update", data)}
-      deleteItem={handleDelete}
+      deleteItem={() => openModal("client", "delete", data)}
     >
       {isRead && <ClientReadView client={data} />}
       {(isCreate || isUpdate) && (
@@ -57,6 +53,7 @@ export default function ClientModal({
           onSubmit={isCreate ? submitCreateClient : submitUpdateClient}
         />
       )}
+      {isDelete && <ClientDelete client={data} />}
     </SectionModalCommon>
   );
 }

@@ -19,7 +19,7 @@ export default function ListPage({
   handleClick: (e: MouseEvent<HTMLLIElement>, id: number) => void;
   handleAdd: (e: MouseEvent<HTMLDivElement>) => void;
   handleEdit: (e: MouseEvent<HTMLDivElement>, data: any) => void;
-  handleDelete: (e: MouseEvent<HTMLDivElement>, id: number) => void;
+  handleDelete: (e: MouseEvent<HTMLDivElement>, data: any) => void;
 }) {
   return (
     <div>
@@ -35,7 +35,7 @@ export default function ListPage({
               key={li.id}
               handleClick={(e) => handleClick(e, li.id)}
               handleEdit={(e) => handleEdit(e, li)}
-              handleDelete={(e) => handleDelete(e, li.id)}
+              handleDelete={(e) => handleDelete(e, li)}
               fields={fields.map((f) => getFieldValue(li, f.key))}
             />
           ))

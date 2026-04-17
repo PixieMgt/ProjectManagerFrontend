@@ -6,6 +6,7 @@ import { useData } from "@/hooks/useData";
 import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
 import { createTask, deleteTask, updateTask } from "@/lib/api/calls/tasks";
+import TaskDelete from "./TaskDelete";
 
 export default function TaskModal({
   mode,
@@ -21,6 +22,7 @@ export default function TaskModal({
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
+  const isDelete = mode === "delete";
 
   async function submitCreateTask(form: any) {
     const task = await createTask(form, token);
@@ -36,18 +38,11 @@ export default function TaskModal({
     refreshTasks();
   }
 
-  async function handleDelete() {
-    const task = await deleteTask(data.id, token);
-    if (!task) return;
-    closeModal();
-    refreshTasks();
-  }
-
   return (
     <SectionModalCommon
       title={isCreate ? "Add Task" : data?.title}
       setEditMode={() => openModal("task", "update", data)}
-      deleteItem={handleDelete}
+      deleteItem={() => openModal("task", "delete", data)}
     >
       {isRead && <TaskReadView task={data} />}
       {(isCreate || isUpdate) && (
@@ -56,6 +51,7 @@ export default function TaskModal({
           onSubmit={isCreate ? submitCreateTask : submitUpdateTask}
         />
       )}
+      {isDelete && <TaskDelete task={data} />}
     </SectionModalCommon>
   );
 }

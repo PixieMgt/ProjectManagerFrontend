@@ -9,6 +9,7 @@ import {
 import SectionModalCommon from "../SectionModalCommon";
 import ProjectMemberReadView from "./ProjectMemberReadView";
 import ProjectMemberForm from "./ProjectMemberForm";
+import ProjectMemberDelete from "./ProjectMemberDelete";
 
 export default function ProjectMemberModal({
   mode,
@@ -22,6 +23,7 @@ export default function ProjectMemberModal({
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
+  const isDelete = mode === "delete";
 
   async function submitCreateProjectMember(form: any) {
     const projectMember = await createProjectMember(
@@ -47,21 +49,11 @@ export default function ProjectMemberModal({
     closeModal();
   }
 
-  async function handleDelete() {
-    const projectMember = await deleteProjectMember(
-      data.project.id,
-      data.id,
-      token,
-    );
-    if (!projectMember) return;
-    closeModal();
-  }
-
   return (
     <SectionModalCommon
       title={isCreate ? "Add Project Member" : data?.name}
       setEditMode={() => openModal("projectMember", "update", data)}
-      deleteItem={handleDelete}
+      deleteItem={() => openModal("projectMember", "delete", data)}
     >
       {isRead && <ProjectMemberReadView member={data} />}
       {(isCreate || isUpdate) && (
@@ -72,6 +64,7 @@ export default function ProjectMemberModal({
           }
         />
       )}
+      {isDelete && <ProjectMemberDelete member={data} />}
     </SectionModalCommon>
   );
 }

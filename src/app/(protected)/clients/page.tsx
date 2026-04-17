@@ -31,12 +31,10 @@ export default function Clients() {
     openModal("client", "update", client);
   }
 
-  async function handleDelete(e: MouseEvent<HTMLDivElement>, id: number) {
+  async function handleDelete(e: MouseEvent<HTMLDivElement>, client: Client) {
     e.preventDefault();
     e.stopPropagation();
-    const deletedClient = await deleteClient(id, token);
-    if (!deletedClient) return;
-    refreshClients();
+    openModal("client", "delete", client);
   }
 
   return (

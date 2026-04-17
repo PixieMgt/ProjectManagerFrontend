@@ -31,12 +31,10 @@ export default function Projects() {
     openModal("project", "update", project);
   }
 
-  async function handleDelete(e: MouseEvent<HTMLDivElement>, id: number) {
+  async function handleDelete(e: MouseEvent<HTMLDivElement>, project: Project) {
     e.preventDefault();
     e.stopPropagation();
-    const deletedProject = await deleteProject(id, token);
-    if (!deletedProject) return;
-    refreshProjects();
+    openModal("project", "delete", project);
   }
 
   return (

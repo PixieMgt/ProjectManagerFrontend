@@ -31,12 +31,13 @@ export default function TimeEntries() {
     openModal("timeEntry", "update", timeEntry);
   }
 
-  async function handleDelete(e: MouseEvent<HTMLDivElement>, id: number) {
+  async function handleDelete(
+    e: MouseEvent<HTMLDivElement>,
+    timeEntry: TimeEntry,
+  ) {
     e.preventDefault();
     e.stopPropagation();
-    const deletedTimeEntry = await deleteTimeEntry(id, token);
-    if (!deletedTimeEntry) return;
-    refreshTimeEntries();
+    openModal("timeEntry", "delete", timeEntry);
   }
 
   return (

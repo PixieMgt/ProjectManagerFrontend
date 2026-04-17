@@ -10,6 +10,7 @@ import {
 } from "@/lib/api/calls/projects";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
+import ProjectDelete from "./ProjectDelete";
 
 export default function ProjectModal({
   mode,
@@ -24,6 +25,7 @@ export default function ProjectModal({
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
+  const isDelete = mode === "delete";
 
   async function submitCreateProject(form: any) {
     const project = await createProject(form, token);
@@ -39,18 +41,11 @@ export default function ProjectModal({
     refreshProjects();
   }
 
-  async function handleDelete() {
-    const project = await deleteProject(data.id, token);
-    if (!project) return;
-    closeModal();
-    refreshProjects();
-  }
-
   return (
     <SectionModalCommon
       title={isCreate ? "Add Project" : data?.name}
       setEditMode={() => openModal("project", "update", data)}
-      deleteItem={handleDelete}
+      deleteItem={() => openModal("project", "delete", data)}
     >
       {isRead && <ProjectReadView project={data} />}
       {(isCreate || isUpdate) && (
@@ -59,6 +54,7 @@ export default function ProjectModal({
           onSubmit={isCreate ? submitCreateProject : submitUpdateProject}
         />
       )}
+      {isDelete && <ProjectDelete project={data} />}
     </SectionModalCommon>
   );
 }

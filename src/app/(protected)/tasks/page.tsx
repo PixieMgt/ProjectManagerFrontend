@@ -31,12 +31,10 @@ export default function Tasks() {
     openModal("task", "update", task);
   }
 
-  async function handleDelete(e: MouseEvent<HTMLDivElement>, id: number) {
+  async function handleDelete(e: MouseEvent<HTMLDivElement>, task: Task) {
     e.preventDefault();
     e.stopPropagation();
-    const deletedTask = await deleteTask(id, token);
-    if (!deletedTask) return;
-    refreshTasks();
+    openModal("task", "delete", task);
   }
 
   return (

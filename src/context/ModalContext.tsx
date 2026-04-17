@@ -17,7 +17,7 @@ export const modalMap = {
 };
 
 export type ModalType = keyof typeof modalMap;
-export type ModalMode = "none" | "read" | "create" | "update";
+export type ModalMode = "none" | "read" | "create" | "update" | "delete";
 
 type ModalContextType = {
   shown: boolean;
