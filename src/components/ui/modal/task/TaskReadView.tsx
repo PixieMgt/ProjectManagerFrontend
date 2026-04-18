@@ -1,21 +1,33 @@
 import ModalReadContainer from "../ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
+import format from "@/lib/utils/formatting/format";
 
 export default function TaskReadView({ task }: { task: any }) {
   return (
     <ModalReadContainer>
-      <ModalReadField label="Title" value={task?.title} />
+      <ModalReadField label="Title" value={format("string", task?.title)} />
       <ModalReadField
         label="Description"
-        value={task?.description || "No description set"}
+        value={format("string", task?.description) || "No description set"}
       />
-      <ModalReadField label="Project" value={task?.project?.name} />
-      <ModalReadField label="Assignee" value={task?.owner?.name} />
-      <ModalReadField label="Status" value={task?.status} />
-      <ModalReadField label="Priority" value={task?.priority} />
+      <ModalReadField
+        label="Project"
+        value={format("string", task?.project?.name)}
+      />
+      <ModalReadField
+        label="Assignee"
+        value={format("string", task?.owner?.name)}
+      />
+      <ModalReadField label="Status" value={format("status", task?.status)} />
+      <ModalReadField
+        label="Priority"
+        value={format("priority", task?.priority)}
+      />
       <ModalReadField
         label="Esimated Hours"
-        value={task?.estimatedHours || "No estimated hours set"}
+        value={
+          format("hours", task?.estimatedHours) || "No estimated hours set"
+        }
       />
     </ModalReadContainer>
   );

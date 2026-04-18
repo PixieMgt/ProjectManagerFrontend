@@ -5,6 +5,7 @@ import { Project } from "@/lib/api/models/project";
 import { ProjectMember } from "@/lib/api/models/ProjectMember";
 import ModalReadContainer from "../ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
+import format from "@/lib/utils/formatting/format";
 
 export default function ProjectMemberDelete({
   member,
@@ -27,8 +28,8 @@ export default function ProjectMemberDelete({
   return (
     <div className="flex flex-col">
       <ModalReadContainer>
-        <ModalReadField label="Name" value={member?.name} />
-        <ModalReadField label="Role" value={member?.role} />
+        <ModalReadField label="Name" value={format("string", member?.name)} />
+        <ModalReadField label="Role" value={format("role", member?.role)} />
       </ModalReadContainer>
       <button
         onClick={handleDelete}

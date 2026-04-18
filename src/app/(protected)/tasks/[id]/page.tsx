@@ -11,6 +11,7 @@ import { getTask } from "@/lib/api/calls/tasks";
 import { Client } from "@/lib/api/models/client";
 import { Task } from "@/lib/api/models/task";
 import { TimeEntry } from "@/lib/api/models/timeEntry";
+import format from "@/lib/utils/formatting/format";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -40,31 +41,52 @@ export default function TaskPage() {
             title="Task Details"
             handleEdit={() => openModal("task", "update", task)}
           >
-            <DetailsField label="Title" value={task?.title} />
-            <DetailsField label="Description" value={task?.description} />
-            <DetailsField label="Status" value={task?.status} />
-            <DetailsField label="Priority" value={task?.priority} />
+            <DetailsField label="Title" value={format("string", task?.title)} />
             <DetailsField
-              label="Estimated Hours"
-              value={task?.estimatedHours}
+              label="Description"
+              value={format("string", task?.description)}
+            />
+            <DetailsField
+              label="Status"
+              value={format("status", task?.status)}
+            />
+            <DetailsField
+              label="Priority"
+              value={format("priority", task?.priority)}
+            />
+            <DetailsField
+              label="Estimated Time"
+              value={format("hours", task?.estimatedHours)}
             />
           </DetailsPageSection>
           <DetailsPageSection
             title="Project Details"
             handleEdit={() => openModal("project", "update", task?.project)}
           >
-            <DetailsField label="Name" value={task?.project?.name} />
+            <DetailsField
+              label="Name"
+              value={format("string", task?.project?.name)}
+            />
             <DetailsField
               label="Description"
-              value={task?.project?.description}
+              value={format("string", task?.project?.description)}
             />
-            <DetailsField label="Status" value={task?.project?.status} />
+            <DetailsField
+              label="Status"
+              value={format("status", task?.project?.status)}
+            />
             <DetailsField
               label="Hourly Rate"
-              value={task?.project?.hourlyRate}
+              value={format("currency", task?.project?.hourlyRate)}
             />
-            <DetailsField label="Start Date" value={task?.project?.startDate} />
-            <DetailsField label="Deadline" value={task?.project?.deadline} />
+            <DetailsField
+              label="Start Date"
+              value={format("date", task?.project?.startDate)}
+            />
+            <DetailsField
+              label="Deadline"
+              value={format("date", task?.project?.deadline)}
+            />
           </DetailsPageSection>
           <DetailsPageSectionList
             title="Time Entries"

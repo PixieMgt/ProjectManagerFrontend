@@ -1,5 +1,4 @@
-export default function displayDate(value: string): string {
-  if (!value) return "/";
+export default function formatDate(value: string): string {
   const arr = value.split("-");
   const day = arr[2];
   const month = arr[1];

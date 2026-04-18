@@ -5,6 +5,7 @@ import { deleteTimeEntry } from "@/lib/api/calls/time-entries";
 import { TimeEntry } from "@/lib/api/models/timeEntry";
 import ModalReadContainer from "../ModalReadContainer";
 import ModalReadField from "../../display/ModalReadField";
+import format from "@/lib/utils/formatting/format";
 
 export default function TimeEntryDelete({
   timeEntry,
@@ -25,21 +26,33 @@ export default function TimeEntryDelete({
   return (
     <div className="flex flex-col">
       <ModalReadContainer>
-        <ModalReadField label="Project" value={timeEntry?.project?.name} />
-        <ModalReadField label="Task" value={timeEntry?.task?.title} />
+        <ModalReadField
+          label="Project"
+          value={format("string", timeEntry?.project?.name)}
+        />
+        <ModalReadField
+          label="Task"
+          value={format("string", timeEntry?.task?.title)}
+        />
         <ModalReadField
           label="Comment"
-          value={timeEntry?.comment || "No comment"}
+          value={format("string", timeEntry?.comment) || "No comment"}
         />
-        <ModalReadField label="Assignee" value={timeEntry?.user?.name} />
-        <ModalReadField label="Date" value={timeEntry?.date || "No date set"} />
+        <ModalReadField
+          label="Assignee"
+          value={format("string", timeEntry?.user?.name)}
+        />
+        <ModalReadField
+          label="Date"
+          value={format("date", timeEntry?.date) || "No date set"}
+        />
         <ModalReadField
           label="Start Time"
-          value={timeEntry?.startTime || "No start time set"}
+          value={format("time", timeEntry?.startTime) || "No start time set"}
         />
         <ModalReadField
           label="End Time"
-          value={timeEntry?.endTime || "No end time set"}
+          value={format("time", timeEntry?.endTime) || "No end time set"}
         />
       </ModalReadContainer>
       <button

@@ -9,6 +9,7 @@ import { useModal } from "@/hooks/useModal";
 import { getClient } from "@/lib/api/calls/clients";
 import { Client } from "@/lib/api/models/client";
 import { Project } from "@/lib/api/models/project";
+import format from "@/lib/utils/formatting/format";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -38,10 +39,19 @@ export default function ClientPage() {
             title="Client Details"
             handleEdit={() => openModal("client", "update", client)}
           >
-            <DetailsField label="Name" value={client?.name} />
-            <DetailsField label="E-mail" value={client?.email} />
-            <DetailsField label="Phone Number" value={client?.phone} />
-            <DetailsField label="Notes" value={client?.notes} />
+            <DetailsField label="Name" value={format("string", client?.name)} />
+            <DetailsField
+              label="E-mail"
+              value={format("string", client?.email)}
+            />
+            <DetailsField
+              label="Phone Number"
+              value={format("string", client?.phone)}
+            />
+            <DetailsField
+              label="Notes"
+              value={format("string", client?.notes)}
+            />
           </DetailsPageSection>
           <DetailsPageSectionList
             title="Projects"

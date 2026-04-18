@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useModal } from "@/hooks/useModal";
 import { getTimeEntry } from "@/lib/api/calls/time-entries";
 import { TimeEntry } from "@/lib/api/models/timeEntry";
+import format from "@/lib/utils/formatting/format";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -34,13 +35,34 @@ export default function TimeEntryPage() {
             title="Time Entry Details"
             handleEdit={() => openModal("timeEntry", "update", timeEntry)}
           >
-            <DetailsField label="Task" value={timeEntry?.task?.title} />
-            <DetailsField label="User" value={timeEntry?.user?.name} />
-            <DetailsField label="Comment" value={timeEntry?.comment} />
-            <DetailsField label="Date" value={timeEntry?.date} />
-            <DetailsField label="Start Time" value={timeEntry?.startTime} />
-            <DetailsField label="End Time" value={timeEntry?.endTime} />
-            <DetailsField label="Duration" value={timeEntry?.durationMinutes} />
+            <DetailsField
+              label="Task"
+              value={format("string", timeEntry?.task?.title)}
+            />
+            <DetailsField
+              label="User"
+              value={format("string", timeEntry?.user?.name)}
+            />
+            <DetailsField
+              label="Comment"
+              value={format("string", timeEntry?.comment)}
+            />
+            <DetailsField
+              label="Date"
+              value={format("date", timeEntry?.date)}
+            />
+            <DetailsField
+              label="Start Time"
+              value={format("time", timeEntry?.startTime)}
+            />
+            <DetailsField
+              label="End Time"
+              value={format("time", timeEntry?.endTime)}
+            />
+            <DetailsField
+              label="Duration"
+              value={format("minutes", timeEntry?.durationMinutes)}
+            />
           </DetailsPageSection>
           <DetailsPageSection
             title="Task Details"
@@ -51,16 +73,25 @@ export default function TimeEntryPage() {
               })
             }
           >
-            <DetailsField label="Title" value={timeEntry?.task?.title} />
+            <DetailsField
+              label="Title"
+              value={format("string", timeEntry?.task?.title)}
+            />
             <DetailsField
               label="Description"
-              value={timeEntry?.task?.description}
+              value={format("string", timeEntry?.task?.description)}
             />
-            <DetailsField label="Status" value={timeEntry?.task?.status} />
-            <DetailsField label="Priority" value={timeEntry?.task?.priority} />
             <DetailsField
-              label="Estimated Hours"
-              value={timeEntry?.task?.estimatedHours}
+              label="Status"
+              value={format("status", timeEntry?.task?.status)}
+            />
+            <DetailsField
+              label="Priority"
+              value={format("priority", timeEntry?.task?.priority)}
+            />
+            <DetailsField
+              label="Estimated Time"
+              value={format("hours", timeEntry?.task?.estimatedHours)}
             />
           </DetailsPageSection>
         </DetailsPage>

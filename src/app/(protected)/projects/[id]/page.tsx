@@ -12,6 +12,7 @@ import DetailsPageSection from "@/components/ui/layout/detail/DetailsPageSection
 import DetailsPageSectionList from "@/components/ui/layout/detail/DetailsPageSectionList";
 import DetailsField from "@/components/ui/display/DetailsField";
 import { useModal } from "@/hooks/useModal";
+import format from "@/lib/utils/formatting/format";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -41,21 +42,51 @@ export default function ProjectPage() {
             title="Project Details"
             handleEdit={() => openModal("project", "update", project)}
           >
-            <DetailsField label="Name" value={project?.name} />
-            <DetailsField label="Description" value={project?.description} />
-            <DetailsField label="Status" value={project?.status} />
-            <DetailsField label="Hourly Rate" value={project?.hourlyRate} />
-            <DetailsField label="Start Date" value={project?.startDate} />
-            <DetailsField label="Deadline" value={project?.deadline} />
+            <DetailsField
+              label="Name"
+              value={format("string", project?.name)}
+            />
+            <DetailsField
+              label="Description"
+              value={format("string", project?.description)}
+            />
+            <DetailsField
+              label="Status"
+              value={format("status", project?.status)}
+            />
+            <DetailsField
+              label="Hourly Rate"
+              value={format("currency", project?.hourlyRate)}
+            />
+            <DetailsField
+              label="Start Date"
+              value={format("date", project?.startDate)}
+            />
+            <DetailsField
+              label="Deadline"
+              value={format("date", project?.deadline)}
+            />
           </DetailsPageSection>
           <DetailsPageSection
             title="Client Details"
             handleEdit={() => openModal("client", "update", project?.client)}
           >
-            <DetailsField label="Name" value={project?.client?.name} />
-            <DetailsField label="E-mail" value={project?.client?.email} />
-            <DetailsField label="Phone Number" value={project?.client?.phone} />
-            <DetailsField label="Notes" value={project?.client?.notes} />
+            <DetailsField
+              label="Name"
+              value={format("string", project?.client?.name)}
+            />
+            <DetailsField
+              label="E-mail"
+              value={format("string", project?.client?.email)}
+            />
+            <DetailsField
+              label="Phone Number"
+              value={format("string", project?.client?.phone)}
+            />
+            <DetailsField
+              label="Notes"
+              value={format("string", project?.client?.notes)}
+            />
           </DetailsPageSection>
           <DetailsPageSectionList
             title="Members"
