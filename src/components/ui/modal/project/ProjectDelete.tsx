@@ -10,13 +10,11 @@ import format from "@/lib/utils/formatting/format";
 export default function ProjectDelete({ project }: { project: Project }) {
   const { token } = useAuth();
   const { closeModal } = useModal();
-  const { refreshProjects } = useData();
 
   async function handleDelete() {
     const deletedProject = await deleteProject(project?.id, token);
     if (!deletedProject) return;
     closeModal();
-    refreshProjects();
   }
 
   return (

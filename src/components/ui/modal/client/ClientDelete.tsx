@@ -10,13 +10,11 @@ import format from "@/lib/utils/formatting/format";
 export default function ClientDelete({ client }: { client: Client }) {
   const { token } = useAuth();
   const { closeModal } = useModal();
-  const { refreshClients } = useData();
 
   async function handleDelete() {
     const deletedClient = await deleteClient(client?.id, token);
     if (!deletedClient) return;
     closeModal();
-    refreshClients();
   }
 
   return (

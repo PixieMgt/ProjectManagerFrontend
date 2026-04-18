@@ -37,7 +37,14 @@ export default function ClientPage() {
         <DetailsPage title={client?.name}>
           <DetailsPageSection
             title="Client Details"
-            handleEdit={() => openModal("client", "update", client)}
+            handleEdit={() =>
+              openModal({
+                type: "client",
+                mode: "update",
+                data: client,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField label="Name" value={format("string", client?.name)} />
             <DetailsField
@@ -57,9 +64,21 @@ export default function ClientPage() {
             title="Projects"
             fields={["name", "status"]}
             list={projects}
-            handleAdd={() => openModal("project", "create", { client })}
+            handleAdd={() =>
+              openModal({
+                type: "project",
+                mode: "create",
+                data: { client },
+                onClose: getData,
+              })
+            }
             handleClick={(data) =>
-              openModal("project", "read", { ...data, client })
+              openModal({
+                type: "project",
+                mode: "read",
+                data: { ...data, client },
+                onClose: getData,
+              })
             }
           />
         </DetailsPage>

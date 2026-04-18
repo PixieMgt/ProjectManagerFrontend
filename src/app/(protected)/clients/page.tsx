@@ -22,19 +22,29 @@ export default function Clients() {
 
   function handleAdd(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    openModal("client", "create");
+    openModal({ type: "client", mode: "create", onClose: refreshClients });
   }
 
   function handleEdit(e: MouseEvent<HTMLDivElement>, client: Client) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("client", "update", client);
+    openModal({
+      type: "client",
+      mode: "update",
+      data: client,
+      onClose: refreshClients,
+    });
   }
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, client: Client) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("client", "delete", client);
+    openModal({
+      type: "client",
+      mode: "delete",
+      data: client,
+      onClose: refreshClients,
+    });
   }
 
   return (

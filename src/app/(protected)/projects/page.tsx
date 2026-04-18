@@ -22,19 +22,29 @@ export default function Projects() {
 
   function handleAdd(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    openModal("project", "create");
+    openModal({ type: "project", mode: "create", onClose: refreshProjects });
   }
 
   function handleEdit(e: MouseEvent<HTMLDivElement>, project: Project) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("project", "update", project);
+    openModal({
+      type: "project",
+      mode: "update",
+      data: project,
+      onClose: refreshProjects,
+    });
   }
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, project: Project) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("project", "delete", project);
+    openModal({
+      type: "project",
+      mode: "delete",
+      data: project,
+      onClose: refreshProjects,
+    });
   }
 
   return (

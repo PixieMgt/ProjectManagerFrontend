@@ -21,7 +21,6 @@ export default function ClientModal({
 }) {
   const { token } = useAuth();
   const { openModal, closeModal } = useModal();
-  const { refreshClients } = useData();
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
@@ -31,20 +30,18 @@ export default function ClientModal({
     const client = await createClient(form, token);
     if (!client) return;
     closeModal();
-    refreshClients();
   }
   async function submitUpdateClient(form: any) {
     const client = await updateClient(data.id, form, token);
     if (!client) return;
     closeModal();
-    refreshClients();
   }
 
   return (
     <SectionModalCommon
       title={isCreate ? "Add Client" : data?.name}
-      setEditMode={() => openModal("client", "update", data)}
-      deleteItem={() => openModal("client", "delete", data)}
+      setEditMode={() => openModal({ type: "client", mode: "update", data })}
+      deleteItem={() => openModal({ type: "client", mode: "delete", data })}
     >
       {isRead && <ClientReadView client={data} />}
       {(isCreate || isUpdate) && (

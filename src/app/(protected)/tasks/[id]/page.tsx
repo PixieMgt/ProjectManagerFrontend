@@ -39,7 +39,14 @@ export default function TaskPage() {
         <DetailsPage title={task?.title}>
           <DetailsPageSection
             title="Task Details"
-            handleEdit={() => openModal("task", "update", task)}
+            handleEdit={() =>
+              openModal({
+                type: "task",
+                mode: "update",
+                data: task,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField label="Title" value={format("string", task?.title)} />
             <DetailsField
@@ -61,7 +68,14 @@ export default function TaskPage() {
           </DetailsPageSection>
           <DetailsPageSection
             title="Project Details"
-            handleEdit={() => openModal("project", "update", task?.project)}
+            handleEdit={() =>
+              openModal({
+                type: "project",
+                mode: "update",
+                data: task?.project,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField
               label="Name"
@@ -92,12 +106,24 @@ export default function TaskPage() {
             title="Time Entries"
             fields={["user.name", "date", "durationMinutes"]}
             list={timeEntries}
-            handleAdd={() => openModal("timeEntry", "create", { task })}
+            handleAdd={() =>
+              openModal({
+                type: "timeEntry",
+                mode: "create",
+                data: { task },
+                onClose: getData,
+              })
+            }
             handleClick={(data) =>
-              openModal("timeEntry", "read", {
-                ...data,
-                task,
-                project: task?.project,
+              openModal({
+                type: "timeEntry",
+                mode: "read",
+                data: {
+                  ...data,
+                  task,
+                  project: task?.project,
+                },
+                onClose: getData,
               })
             }
           />

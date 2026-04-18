@@ -21,7 +21,6 @@ export default function ProjectModal({
 }) {
   const { token } = useAuth();
   const { openModal, closeModal } = useModal();
-  const { refreshProjects } = useData();
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
@@ -31,21 +30,19 @@ export default function ProjectModal({
     const project = await createProject(form, token);
     if (!project) return;
     closeModal();
-    refreshProjects();
   }
 
   async function submitUpdateProject(form: any) {
     const project = await updateProject(data.id, form, token);
     if (!project) return;
     closeModal();
-    refreshProjects();
   }
 
   return (
     <SectionModalCommon
       title={isCreate ? "Add Project" : data?.name}
-      setEditMode={() => openModal("project", "update", data)}
-      deleteItem={() => openModal("project", "delete", data)}
+      setEditMode={() => openModal({ type: "project", mode: "update", data })}
+      deleteItem={() => openModal({ type: "project", mode: "delete", data })}
     >
       {isRead && <ProjectReadView project={data} />}
       {(isCreate || isUpdate) && (

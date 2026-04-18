@@ -10,13 +10,11 @@ import format from "@/lib/utils/formatting/format";
 export default function TaskDelete({ task }: { task: Task }) {
   const { token } = useAuth();
   const { closeModal } = useModal();
-  const { refreshTasks } = useData();
 
   async function handleDelete() {
     const deletedTask = await deleteTask(task?.id, token);
     if (!deletedTask) return;
     closeModal();
-    refreshTasks();
   }
 
   return (

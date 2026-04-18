@@ -17,7 +17,6 @@ export default function TaskModal({
 }) {
   const { token } = useAuth();
   const { openModal, closeModal } = useModal();
-  const { refreshTasks } = useData();
 
   const isRead = mode === "read";
   const isCreate = mode === "create";
@@ -28,21 +27,19 @@ export default function TaskModal({
     const task = await createTask(form, token);
     if (!task) return;
     closeModal();
-    refreshTasks();
   }
 
   async function submitUpdateTask(form: any) {
     const task = await updateTask(data.id, form, token);
     if (!task) return;
     closeModal();
-    refreshTasks();
   }
 
   return (
     <SectionModalCommon
       title={isCreate ? "Add Task" : data?.title}
-      setEditMode={() => openModal("task", "update", data)}
-      deleteItem={() => openModal("task", "delete", data)}
+      setEditMode={() => openModal({ type: "task", mode: "update", data })}
+      deleteItem={() => openModal({ type: "task", mode: "delete", data })}
     >
       {isRead && <TaskReadView task={data} />}
       {(isCreate || isUpdate) && (

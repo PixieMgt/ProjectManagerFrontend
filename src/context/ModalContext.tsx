@@ -5,7 +5,7 @@ import ProjectMemberModal from "@/components/ui/modal/project-member/ProjectMemb
 import ProjectModal from "@/components/ui/modal/project/ProjectModal";
 import TaskModal from "@/components/ui/modal/task/TaskModal";
 import TimeEntryModal from "@/components/ui/modal/time-entry/TimeEntryModal";
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 
 export const modalMap = {
   none: null,
@@ -24,7 +24,17 @@ type ModalContextType = {
   type: ModalType;
   mode: ModalMode;
   data: any;
-  openModal: (type: ModalType, mode: ModalMode, data?: any) => void;
+  openModal: ({
+    type,
+    mode,
+    data,
+    onClose,
+  }: {
+    type: ModalType;
+    mode: ModalMode;
+    data?: any;
+    onClose?: () => void | Promise<void>;
+  }) => void;
   closeModal: () => void;
 };
 
@@ -39,15 +49,31 @@ export function ModalProvider({
   const [type, setType] = useState<ModalType>("none");
   const [mode, setMode] = useState<ModalMode>("none");
   const [data, setData] = useState<any>(null);
+  const onCloseRef = useRef<(() => void | Promise<any>) | undefined>(undefined);
 
-  function openModal(type: ModalType, mode: ModalMode, data?: any) {
+  function openModal({
+    type,
+    mode,
+    data,
+    onClose,
+  }: {
+    type: ModalType;
+    mode: ModalMode;
+    data?: any;
+    onClose?: () => void | Promise<void>;
+  }) {
     setShown(true);
     setType(type);
     setMode(mode);
     setData(data);
+    if (onClose) onCloseRef.current = onClose;
   }
 
-  function closeModal() {
+  async function closeModal() {
+    const callBack = onCloseRef.current;
+    onCloseRef.current = undefined;
+    callBack && (await callBack());
+
     setShown(false);
     setType("none");
     setMode("none");

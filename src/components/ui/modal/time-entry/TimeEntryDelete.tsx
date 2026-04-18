@@ -14,13 +14,11 @@ export default function TimeEntryDelete({
 }) {
   const { token } = useAuth();
   const { closeModal } = useModal();
-  const { refreshTimeEntries } = useData();
 
   async function handleDelete() {
     const deletedTimeEntry = await deleteTimeEntry(timeEntry?.id, token);
     if (!deletedTimeEntry) return;
     closeModal();
-    refreshTimeEntries();
   }
 
   return (

@@ -33,7 +33,14 @@ export default function TimeEntryPage() {
         <DetailsPage title={timeEntry?.task?.title}>
           <DetailsPageSection
             title="Time Entry Details"
-            handleEdit={() => openModal("timeEntry", "update", timeEntry)}
+            handleEdit={() =>
+              openModal({
+                type: "timeEntry",
+                mode: "update",
+                data: timeEntry,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField
               label="Task"
@@ -67,9 +74,14 @@ export default function TimeEntryPage() {
           <DetailsPageSection
             title="Task Details"
             handleEdit={() =>
-              openModal("task", "update", {
-                ...timeEntry?.task,
-                project: timeEntry.project,
+              openModal({
+                type: "task",
+                mode: "update",
+                data: {
+                  ...timeEntry?.task,
+                  project: timeEntry.project,
+                },
+                onClose: getData,
               })
             }
           >

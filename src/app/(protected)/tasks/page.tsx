@@ -22,19 +22,29 @@ export default function Tasks() {
 
   function handleAdd(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    openModal("task", "create");
+    openModal({ type: "task", mode: "create", onClose: refreshTasks });
   }
 
   function handleEdit(e: MouseEvent<HTMLDivElement>, task: Task) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("task", "update", task);
+    openModal({
+      type: "task",
+      mode: "update",
+      data: task,
+      onClose: refreshTasks,
+    });
   }
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, task: Task) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("task", "delete", task);
+    openModal({
+      type: "task",
+      mode: "delete",
+      data: task,
+      onClose: refreshTasks,
+    });
   }
 
   return (

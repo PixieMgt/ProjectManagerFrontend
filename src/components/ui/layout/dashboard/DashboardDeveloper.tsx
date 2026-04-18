@@ -6,7 +6,16 @@ import { useData } from "@/hooks/useData";
 import { useModal } from "@/hooks/useModal";
 
 export default function DashboardDeveloper() {
-  const { projects, clients, tasks, timeEntries } = useData();
+  const {
+    projects,
+    clients,
+    tasks,
+    timeEntries,
+    refreshProjects,
+    refreshClients,
+    refreshTasks,
+    refreshTimeEntries,
+  } = useData();
 
   const { openModal } = useModal();
 
@@ -15,7 +24,13 @@ export default function DashboardDeveloper() {
       <div className="flex-1">
         <SectionContainer
           title="Projects"
-          onAdd={() => openModal("project", "create")}
+          onAdd={() =>
+            openModal({
+              type: "project",
+              mode: "create",
+              onClose: refreshProjects,
+            })
+          }
         >
           {projects ? (
             projects.map((p) => (
@@ -29,7 +44,14 @@ export default function DashboardDeveloper() {
                   "startDate",
                   "deadline",
                 ]}
-                onClick={() => openModal("project", "read", p)}
+                onClick={() =>
+                  openModal({
+                    type: "project",
+                    mode: "read",
+                    data: p,
+                    onClose: refreshProjects,
+                  })
+                }
               />
             ))
           ) : (
@@ -38,7 +60,9 @@ export default function DashboardDeveloper() {
         </SectionContainer>
         <SectionContainer
           title="Tasks"
-          onAdd={() => openModal("task", "create")}
+          onAdd={() =>
+            openModal({ type: "task", mode: "create", onClose: refreshTasks })
+          }
         >
           {tasks ? (
             tasks.map((t) => (
@@ -46,7 +70,14 @@ export default function DashboardDeveloper() {
                 key={t.id}
                 item={t}
                 fields={["title", "status", "priority", "estimatedHours"]}
-                onClick={() => openModal("task", "read", t)}
+                onClick={() =>
+                  openModal({
+                    type: "task",
+                    mode: "read",
+                    data: t,
+                    onClose: refreshTasks,
+                  })
+                }
               />
             ))
           ) : (
@@ -57,7 +88,13 @@ export default function DashboardDeveloper() {
       <div className="flex-1">
         <SectionContainer
           title="Clients"
-          onAdd={() => openModal("client", "create")}
+          onAdd={() =>
+            openModal({
+              type: "client",
+              mode: "create",
+              onClose: refreshClients,
+            })
+          }
         >
           {clients ? (
             clients.map((c) => (
@@ -65,7 +102,14 @@ export default function DashboardDeveloper() {
                 key={c.id}
                 item={c}
                 fields={["name", "email", "phone"]}
-                onClick={() => openModal("client", "read", c)}
+                onClick={() =>
+                  openModal({
+                    type: "client",
+                    mode: "read",
+                    data: c,
+                    onClose: refreshClients,
+                  })
+                }
               />
             ))
           ) : (
@@ -74,7 +118,13 @@ export default function DashboardDeveloper() {
         </SectionContainer>
         <SectionContainer
           title="Time Entries"
-          onAdd={() => openModal("timeEntry", "create")}
+          onAdd={() =>
+            openModal({
+              type: "timeEntry",
+              mode: "create",
+              onClose: refreshTimeEntries,
+            })
+          }
         >
           {timeEntries ? (
             timeEntries.map((te) => (
@@ -82,7 +132,14 @@ export default function DashboardDeveloper() {
                 key={te.id}
                 item={te}
                 fields={["task.title", "date", "durationMinutes"]}
-                onClick={() => openModal("timeEntry", "read", te)}
+                onClick={() =>
+                  openModal({
+                    type: "timeEntry",
+                    mode: "read",
+                    data: te,
+                    onClose: refreshTimeEntries,
+                  })
+                }
               />
             ))
           ) : (

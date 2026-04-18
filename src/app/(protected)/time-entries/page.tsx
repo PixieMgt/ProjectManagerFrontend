@@ -22,13 +22,22 @@ export default function TimeEntries() {
 
   function handleAdd(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    openModal("timeEntry", "create");
+    openModal({
+      type: "timeEntry",
+      mode: "create",
+      onClose: refreshTimeEntries,
+    });
   }
 
   function handleEdit(e: MouseEvent<HTMLDivElement>, timeEntry: TimeEntry) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("timeEntry", "update", timeEntry);
+    openModal({
+      type: "timeEntry",
+      mode: "update",
+      data: timeEntry,
+      onClose: refreshTimeEntries,
+    });
   }
 
   async function handleDelete(
@@ -37,7 +46,12 @@ export default function TimeEntries() {
   ) {
     e.preventDefault();
     e.stopPropagation();
-    openModal("timeEntry", "delete", timeEntry);
+    openModal({
+      type: "timeEntry",
+      mode: "delete",
+      data: timeEntry,
+      onClose: refreshTimeEntries,
+    });
   }
 
   return (

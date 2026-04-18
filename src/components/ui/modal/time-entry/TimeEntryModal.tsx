@@ -21,7 +21,6 @@ export default function TimeEntryModal({
 }) {
   const { token } = useAuth();
   const { openModal, closeModal } = useModal();
-  const { refreshTimeEntries } = useData();
   const isRead = mode === "read";
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
@@ -31,21 +30,21 @@ export default function TimeEntryModal({
     const timeEntry = await createTimeEntry(form, token);
     if (!timeEntry) return;
     closeModal();
-    refreshTimeEntries();
   }
 
   async function submitUpdateTimeEntry(form: any) {
     const timeEntry = await updateTimeEntry(data.id, form, token);
     if (!timeEntry) return;
     closeModal();
-    refreshTimeEntries();
   }
 
   return (
     <SectionModalCommon
       title={isCreate ? "Add Time Entry" : data?.comment}
-      setEditMode={() => openModal("timeEntry", "update", data)}
-      deleteItem={() => openModal("projectMember", "delete", data)}
+      setEditMode={() => openModal({ type: "timeEntry", mode: "update", data })}
+      deleteItem={() =>
+        openModal({ type: "projectMember", mode: "delete", data })
+      }
     >
       {isRead && <TimeEntryReadView timeEntry={data} />}
       {(isCreate || isUpdate) && (

@@ -40,7 +40,14 @@ export default function ProjectPage() {
         <DetailsPage title={project?.name}>
           <DetailsPageSection
             title="Project Details"
-            handleEdit={() => openModal("project", "update", project)}
+            handleEdit={() =>
+              openModal({
+                type: "project",
+                mode: "update",
+                data: project,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField
               label="Name"
@@ -69,7 +76,14 @@ export default function ProjectPage() {
           </DetailsPageSection>
           <DetailsPageSection
             title="Client Details"
-            handleEdit={() => openModal("client", "update", project?.client)}
+            handleEdit={() =>
+              openModal({
+                type: "client",
+                mode: "update",
+                data: project?.client,
+                onClose: getData,
+              })
+            }
           >
             <DetailsField
               label="Name"
@@ -92,18 +106,42 @@ export default function ProjectPage() {
             title="Members"
             fields={["name", "role"]}
             list={members}
-            handleAdd={() => openModal("projectMember", "create", { project })}
+            handleAdd={() =>
+              openModal({
+                type: "projectMember",
+                mode: "create",
+                data: { project },
+                onClose: getData,
+              })
+            }
             handleClick={(data) =>
-              openModal("projectMember", "read", { ...data, project })
+              openModal({
+                type: "projectMember",
+                mode: "read",
+                data: { ...data, project },
+                onClose: getData,
+              })
             }
           />
           <DetailsPageSectionList
             title="Tasks"
             fields={["title", "status"]}
             list={tasks}
-            handleAdd={() => openModal("task", "create", { project })}
+            handleAdd={() =>
+              openModal({
+                type: "task",
+                mode: "create",
+                data: { project },
+                onClose: getData,
+              })
+            }
             handleClick={(data) =>
-              openModal("task", "read", { ...data, project })
+              openModal({
+                type: "task",
+                mode: "read",
+                data: { ...data, project },
+                onClose: getData,
+              })
             }
           />
         </DetailsPage>

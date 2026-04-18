@@ -52,8 +52,12 @@ export default function ProjectMemberModal({
   return (
     <SectionModalCommon
       title={isCreate ? "Add Project Member" : data?.name}
-      setEditMode={() => openModal("projectMember", "update", data)}
-      deleteItem={() => openModal("projectMember", "delete", data)}
+      setEditMode={() =>
+        openModal({ type: "projectMember", mode: "update", data })
+      }
+      deleteItem={() =>
+        openModal({ type: "projectMember", mode: "delete", data })
+      }
     >
       {isRead && <ProjectMemberReadView member={data} />}
       {(isCreate || isUpdate) && (
