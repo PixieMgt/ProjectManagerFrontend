@@ -29,7 +29,7 @@ export default function ListPage({
           fields={fields.map((f) => f.label)}
           handleAdd={handleAdd}
         />
-        {list ? (
+        {list && list.length > 0 ? (
           list.map((li) => (
             <ListPageItem
               key={li.id}
