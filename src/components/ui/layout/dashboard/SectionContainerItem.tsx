@@ -16,7 +16,7 @@ export default function SectionContainerItem({
     >
       {fields.length > 0 &&
         fields.map((f, i) => (
-          <p key={i} className="text-xl">
+          <p key={i} className="text-xl flex-1">
             {getFieldValue(item, f)}
           </p>
         ))}
