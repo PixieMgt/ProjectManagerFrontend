@@ -18,7 +18,7 @@ export default function TimeEntryForm({
 
   const [form, setForm] = useState({
     userId: defaultValues?.user?.id || user.id,
-    projectId: defaultValues?.project?.id || -1,
+    projectId: defaultValues?.task?.project?.id || -1,
     taskId: defaultValues?.task?.id || -1,
     comment: defaultValues?.comment || "",
     date: defaultValues?.date || "",

@@ -121,7 +121,6 @@ export default function TaskPage() {
                 data: {
                   ...data,
                   task,
-                  project: task?.project,
                 },
                 onClose: getData,
               })
