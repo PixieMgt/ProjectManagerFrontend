@@ -1,5 +1,7 @@
 import { ChangeEvent, HTMLInputTypeAttribute } from "react";
 
+type ModalFormInputType = "textShort" | "textLong" | "number" | "date" | "time";
+
 export default function ModalFormInput({
   type,
   label,
@@ -8,24 +10,36 @@ export default function ModalFormInput({
   value,
   onChange,
 }: {
-  type: HTMLInputTypeAttribute;
+  type: ModalFormInputType;
   label: string;
   name: string;
   placeholder?: string | number;
   value: string | number;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<any>) => void;
 }) {
   return (
-    <div className="flex border-1 m-2 p-2 rounded-lg">
+    <div
+      className={`flex border-1 m-2 p-2 rounded-lg ${type === "textLong" && "row-span-2"}`}
+    >
       <p className="w-[25%]">{label}</p>
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder?.toString()}
-        value={value}
-        onChange={onChange}
-        className="w-[75%] ml-2 border-b-1"
-      />
+      {type === "textLong" ? (
+        <textarea
+          name={name}
+          placeholder={placeholder?.toString()}
+          value={value}
+          onChange={onChange}
+          className="w-[75%] ml-2 border-b-1 resize-none"
+        />
+      ) : (
+        <input
+          name={name}
+          type={type === "textShort" ? "text" : type}
+          placeholder={placeholder?.toString()}
+          value={value}
+          onChange={onChange}
+          className="w-[75%] ml-2 border-b-1"
+        />
+      )}
     </div>
   );
 }

@@ -53,7 +53,7 @@ export default function ClientForm({
     <ModalFormContainer errorMessage={error} onSubmit={handleSubmit}>
       <ModalFormInput
         name="name"
-        type="text"
+        type="textShort"
         label="Name"
         placeholder="Company Name"
         value={form.name}
@@ -61,7 +61,7 @@ export default function ClientForm({
       />
       <ModalFormInput
         name="email"
-        type="text"
+        type="textShort"
         label="E-mail"
         placeholder="Company E-mail"
         value={form.email}
@@ -69,7 +69,7 @@ export default function ClientForm({
       />
       <ModalFormInput
         name="phone"
-        type="text"
+        type="textShort"
         label="Phone"
         placeholder="Company Phone Number"
         value={form.phone}
@@ -77,7 +77,7 @@ export default function ClientForm({
       />
       <ModalFormInput
         name="notes"
-        type="text"
+        type="textLong"
         label="Notes"
         placeholder="Notes"
         value={form.notes}

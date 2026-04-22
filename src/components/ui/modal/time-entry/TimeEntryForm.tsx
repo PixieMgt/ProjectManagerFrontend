@@ -93,7 +93,7 @@ export default function TimeEntryForm({
       )}
       <ModalFormInput
         name="comment"
-        type="text"
+        type="textLong"
         label="Comment"
         placeholder="Comment"
         value={form.comment}

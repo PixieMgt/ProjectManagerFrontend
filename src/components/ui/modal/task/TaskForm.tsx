@@ -69,7 +69,7 @@ export default function TaskForm({
     <ModalFormContainer errorMessage={error} onSubmit={handleSubmit}>
       <ModalFormInput
         name="title"
-        type="text"
+        type="textShort"
         label="Title"
         placeholder="Task Title"
         value={form.title}
@@ -77,7 +77,7 @@ export default function TaskForm({
       />
       <ModalFormInput
         name="description"
-        type="text"
+        type="textLong"
         label="Description"
         placeholder="Task Description"
         value={form.description}

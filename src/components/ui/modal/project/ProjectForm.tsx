@@ -65,7 +65,7 @@ export default function ProjectForm({
     <ModalFormContainer errorMessage={error} onSubmit={handleSubmit}>
       <ModalFormInput
         name="name"
-        type="text"
+        type="textShort"
         label="Name"
         placeholder="Project Name"
         value={form.name}
@@ -73,7 +73,7 @@ export default function ProjectForm({
       />
       <ModalFormInput
         name="description"
-        type="text"
+        type="textLong"
         label="Description"
         placeholder="Project Description"
         value={form.description}
