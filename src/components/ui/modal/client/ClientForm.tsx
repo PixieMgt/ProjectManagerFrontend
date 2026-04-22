@@ -39,12 +39,16 @@ export default function ClientForm({
 
     const name = form?.name?.trim();
     const email = form?.email?.trim();
-    const phone = form?.phone?.trim();
+    const phone = form?.phone?.trim().replace(/\D/g, "");
     const notes = form?.notes?.trim();
 
-    if (name.length === 0) err += "Name can't be empty";
-    if (name.length > 128) err += "Name is too long";
-    if (notes.length > 2000) err += "Notes are too long";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length === 0) err += "\nName can't be empty";
+    if (name.length > 128) err += "\nName is too long";
+    if (!emailRegex.test(email)) err += "\nInvalid e-mail";
+    if (phone.length < 8 || phone.length > 15) err += "\nInvalid phone number";
+    if (notes.length > 2000) err += "\nNotes are too long";
 
     return err.length > 0 ? err : null;
   }
